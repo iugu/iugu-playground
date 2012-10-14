@@ -54,6 +54,8 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     date_validator (0.6.3)
       activemodel (~> 3.0)
     default_value_for (2.0.1)
@@ -259,6 +261,8 @@ DEPENDENCIES
   coffee-filter
   coffee-rails (~> 3.2.1)
   coffee-script
+  compass
+  compass-rails
   date_validator
   default_value_for
   devise
