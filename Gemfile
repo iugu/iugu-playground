@@ -28,8 +28,8 @@ gem "acts_as_flags"
 gem "acts_as_status"
 
 # gem "iugusdk", "~> 1.0.0.alpha.2"
-gem 'iugusdk'
-gem 'iugu-ux'
+gem 'iugusdk', :path => "../iugusdk"
+gem 'iugu-ux', :path => "../iugu-ux"
 
 # Gems used only for assets and not required
 # in production environments by default.
