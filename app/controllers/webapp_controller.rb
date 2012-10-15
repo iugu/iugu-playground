@@ -1,5 +1,9 @@
 class WebappController < ApplicationController
   def entry_point
-    render :layout => false
+    if current_user
+      render :layout => false
+    else
+      redirect_to '/'
+    end
   end
 end
