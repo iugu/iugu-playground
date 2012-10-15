@@ -15,6 +15,7 @@ IuguPlayground::Application.routes.draw do
 
     match 'app/(*path)' => 'webapp#entry_point'
 
+    root :to => 'webapp#index'
   end
 
 end
