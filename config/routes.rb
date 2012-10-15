@@ -5,11 +5,11 @@ IuguPlayground::Application.routes.draw do
     
     namespace :api do
       namespace :v1 do
-        get 'persons' => 'person#index'
-        post 'persons' => 'person#create'
-        get 'persons/:id' => 'person#show'
-        put 'persons/:id' => 'person#update'
-        delete 'persons/:id' => 'person#destroy'
+        get 'people' => 'person#index'
+        post 'people' => 'person#create'
+        get 'people/:id' => 'person#show'
+        put 'people/:id' => 'person#update'
+        delete 'people/:id' => 'person#destroy'
       end
     end
 
