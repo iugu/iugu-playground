@@ -1,7 +1,11 @@
 %body
-  %h1
-    You are logged in to Iugu's Playground
 
-  = link_to 'Open Application', '/app'
-  = link_to 'Settings', settings_path
-  = link_to 'Logout', destroy_user_session_path, :method => :delete
+  .hero-unit
+    %h1{ :style => "margin-bottom: 10px" }
+      Iugu's Playground
+    %p
+      Você está logado na Aplicação
+
+    = link_to 'Abrir Aplicação', '/app', :class => 'btn btn-primary btn-large'
+    = link_to 'Configurações', settings_path, :class => 'btn'
+    = link_to 'Sair', destroy_user_session_path, :method => :delete, :class => 'btn btn-danger'

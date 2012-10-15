@@ -1,5 +1,5 @@
 IuguSDK.setup do |config|
-  config.app_main_url = '/app/'
+  config.app_main_url = '/'
   config.application_title = 'iugu-playground'
 
   config.enable_multiple_accounts = false

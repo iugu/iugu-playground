@@ -1,7 +1,11 @@
 %body
-  %h1
-    Welcome to Iugu's Playground
+  .hero-unit
+    %h1{ :style => "margin-bottom: 10px" }
+      Iugu's Playground
+    %p
+      Este laboratório permite testar e elaborar técnicas para aplicações web
+    %br
 
-  = link_to 'Login', '/app/'
-  or
-  = link_to 'Signup', new_user_registration_path
+    = link_to 'Entrar', '/app/', :class => 'btn btn-primary btn-large'
+    ou
+    = link_to 'Cadastro', new_user_registration_path, :class => 'btn btn-large btn-success'
