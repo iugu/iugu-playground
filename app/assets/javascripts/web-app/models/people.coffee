@@ -24,3 +24,8 @@ window.app.People = Backbone.Paginator.requestPager.extend
 
     'api_token': ->
       return api_token
+
+  parse: (response) ->
+    this.totalItems = response.totalItems
+    this.totalPages = Math.ceil(this.totalItems / this.perPage)
+    return response.items
