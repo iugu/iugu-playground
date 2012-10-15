@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Person.destroy_all
+Person.populate(1000) do |person|
+  person.name = Faker::Name.name
+  person.age = rand(60) + 5
+end

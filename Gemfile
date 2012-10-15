@@ -27,6 +27,9 @@ gem "rabl"
 gem "acts_as_flags"
 gem "acts_as_status"
 
+gem "faker"
+gem "populator"
+
 gem 'jquery-rails'
 
 # gem "iugusdk", "~> 1.0.0.alpha.2"
