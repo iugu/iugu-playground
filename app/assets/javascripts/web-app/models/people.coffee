@@ -10,7 +10,7 @@ window.app.People = Backbone.Paginator.requestPager.extend
     url: 'api/v1/people?&'
     dataType: 'json'
 
-  paginator_ui:  
+  paginator_ui:
     firstPage: 0
     currentPage: 0
     perPage: 30
