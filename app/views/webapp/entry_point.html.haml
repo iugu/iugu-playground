@@ -4,6 +4,8 @@
     %meta{ :charset => "utf-8" }
     %title
       Iugu's Playground
+    :javascript
+      window.api_token = '#{current_account.api_token}'
     = javascript_include_tag 'vendor'
     = javascript_include_tag 'iugu-ux'
     = stylesheet_link_tag    'iugu-ux'
