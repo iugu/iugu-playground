@@ -1,0 +1,7 @@
+%body
+  %h1
+    You are logged in to Iugu's Playground
+
+  = link_to 'Open Application', '/app'
+  = link_to 'Settings', settings_path
+  = link_to 'Logout', destroy_user_session_path, :method => :delete
