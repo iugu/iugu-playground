@@ -9,11 +9,11 @@ class Api::V1::PersonController < Api::V1::BaseApiController
   end
 
   def create
-    respond_with @current_account.people.create(build_params_for(Person))
+    respond_with @current_account.people.create(build_params_for(Person)), location: nil
   end
 
   def update
-    respond_with @current_account.people.update(params[:id], build_params_for(Person))
+    respond_with @current_account.people.update(params[:id], build_params_for(Person)), location: nil
   end
 
   def destroy
