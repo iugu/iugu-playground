@@ -1,5 +1,5 @@
 IuguSDK.setup do |config|
-  config.app_main_url = '/a'
+  config.app_main_url = '/app/'
   config.application_title = 'iugu-playground'
 
   config.enable_multiple_accounts = false
@@ -14,7 +14,7 @@ IuguSDK.setup do |config|
   config.enable_account_api = true
   config.enable_guest_user = false
 
-  config.alternative_layout = 'forms'
+  # config.alternative_layout = 'forms'
 
   # Application Host
   config.application_main_host = 'iugu-playground.dev'

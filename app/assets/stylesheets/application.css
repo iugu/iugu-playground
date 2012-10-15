@@ -11,3 +11,18 @@
  *= require_self
  *= require_tree .
  */
+
+.wrapper {
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+}
+
+#app
+{
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+}
