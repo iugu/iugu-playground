@@ -1,9 +1,7 @@
 class WebappController < ApplicationController
+  before_filter :authenticate_user!
+
   def entry_point
-    if current_user
-      render :layout => false
-    else
-      redirect_to '/'
-    end
+    render :layout => false
   end
 end
