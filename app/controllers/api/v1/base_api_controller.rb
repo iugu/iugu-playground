@@ -17,6 +17,13 @@ class Api::V1::BaseApiController < ApplicationController
     render 'api/v1/401', :status => :unauthorized unless @current_account
   end
 
+  def build_params_for(model, options = {})
+    _params = Hash.new
+    model.column_names.each { |attr| _params.merge!({ attr => params[attr] }) if params[attr] }
+    options[:nested_attributes].each { |m| _params.merge!({"#{m}_attributes" => params[m]}) if params[m] } if options[:nested_attributes]
+    _params
+  end
+
   def not_found
     render 'api/v1/404', :status => :not_found
   end
