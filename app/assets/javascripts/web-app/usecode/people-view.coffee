@@ -5,10 +5,9 @@ PeopleView = Backbone.View.extend
 
   render: ->
     $(@el).html JST["web-app/presenters/people-view"] totalRecords: 500
-
-    debug 'Checking Collection URL: ' + @collection.paginator_core.url
-
-    @
+    
+    @paginator = new IuguPaginator({ el: @$('.collection-pagination')})
+    @paginator.render
 
 @PeopleView = PeopleView
 
