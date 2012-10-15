@@ -33,6 +33,8 @@ gem 'jquery-rails'
 gem "iugusdk", "~> 1.0.0.alpha.3"
 gem 'iugu-ux'
 
+gem "twitter-bootstrap-rails"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
