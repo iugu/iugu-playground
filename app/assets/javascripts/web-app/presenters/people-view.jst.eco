@@ -1,7 +1,6 @@
 <h1>Hello World</h1>
 
 <div class="collection-rows">
-COLLECTION ROWS HERE: (RECOMENDO UMA VIEW DE LINHAS REUSAVEL, NESTE CASO PRECISAMOS ENVIAR UMA VAR DE COLLECTION PRO CONSTRUCTOR)
 </div>
 
 <div class="collection-pagination">

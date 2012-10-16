@@ -1,6 +1,8 @@
-class IuguPaginator extends Backbone.View
+class IuguPaginatorComponent extends IuguBaseComponent
   tagName: "div"
   className: "iugu-paginator"
+
+  templatePath: "web-app/presenters/components/iugu-paginator-component"
 
   events:
     'click a.servernext': 'nextResultPage'
@@ -17,7 +19,7 @@ class IuguPaginator extends Backbone.View
     this.collection.on('change', this.render, this)
 
   render: ->
-    $(@el).html JST["web-app/presenters/components/iugu-paginator-component"] collection: this.collection.info()
+    $(@el).html JST[this.options.templatePath] collection: this.collection.info()
 
     @
 
@@ -47,4 +49,4 @@ class IuguPaginator extends Backbone.View
     per = $(e.target).text
     this.collection.howManyPer(per)
 
-@IuguPaginator = IuguPaginator
+@IuguPaginatorComponent = IuguPaginatorComponent
