@@ -1,0 +1,3 @@
+<a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.firstPage %> serverprevious">&larr; PREVIOUS</a>
+<a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.lastPage %> servernext">NEXT &rarr;</a>
+<input class="gotopage" type="text" value=<%= @collection.currentPage %>></input>

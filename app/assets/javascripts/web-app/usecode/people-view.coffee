@@ -9,14 +9,11 @@ class PeopleView extends Backbone.View
     @paginator = new IuguPaginatorComponent(
       el: @$('.collection-pagination')
       collection: @collection
-      templatePath: "web-app/presenters/components/iugu-paginator-component"
     )
 
     @dataset = new IuguDatasetComponent(
       el: @$('.collection-rows')
       collection: @collection
-      templatePath: "web-app/presenters/components/iugu-dataset-component"
-      itemTemplatePath: "web-app/presenters/components/iugu-dataset-row-component"
     )
 
     @paginator.render()

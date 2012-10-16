@@ -12,11 +12,11 @@ class IuguDatasetComponent extends IuguBaseComponent
     @els.push (
       new IuguDatasetRowComponent
         model: item
-        templatePath: @options.itemTemplatePath
+        templatePath: @itemTemplatePath
     ).render().el
 
   render: ->
-    $(@el).html JST[@options.templatePath]
+    $(@el).html JST[@templatePath]
 
     @els = []
     @collection.each @addRow

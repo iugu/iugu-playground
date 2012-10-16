@@ -6,8 +6,6 @@ class IuguPaginatorComponent extends IuguBaseComponent
   numberOfPageButtons: 9
 
   events:
-    'click a.servernext': 'nextResultPage'
-    'click a.serverprevious': 'previousResultPage'
     'click a.serverlast': 'gotoLast'
     'click a.page': 'gotoPage'
     'click a.serverfirst': 'gotoFirst'
@@ -20,19 +18,16 @@ class IuguPaginatorComponent extends IuguBaseComponent
     @collection.on('change', @render, this)
 
   render: ->
-    $(@el).html JST[@options.templatePath] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
+    $(@el).html JST[@templatePath] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
+
+    @navigator = new IuguNavigatorComponent(
+      el: @$('.navigator')
+      collection: @collection
+    )
+    
+    @navigator.render()
 
     @
-
-  nextResultPage: (e) ->
-    e.preventDefault
-    if @collection.information.currentPage < @collection.information.lastPage
-      @collection.requestNextPage()
-
-  previousResultPage: (e) ->
-    e.preventDefault
-    if @collection.information.currentPage > @collection.information.firstPage
-      @collection.requestPreviousPage()
 
   gotoFirst: (e) ->
     e.preventDefault
