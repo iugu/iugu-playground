@@ -10,14 +10,14 @@ class IuguNavigatorComponent extends IuguBaseComponent
     'change input.gotopage': 'gotoPage'
 
   initialize: ->
-    _.bindAll @, 'render'
+    _.bindAll @, 'render', 'gotoPage'
     @collection.on('reset', @render, this)
     @collection.on('change', @render, this)
 
   render: ->
     $(@el).html JST[@templatePath] collection: @collection.information
 
-    $('input.gotopage').focus() if @lastChanged
+    @$('input.gotopage').focus() if @lastChanged
     
     @lastChanged = false
 
@@ -35,7 +35,7 @@ class IuguNavigatorComponent extends IuguBaseComponent
 
   gotoPage: (e) ->
     e.preventDefault
-    page = $(e.target).val()
+    page = @$(e.target).val()
     @collection.goTo(page) if page <= @collection.information.lastPage and page >= @collection.information.firstPage
     @lastChanged = true
 
