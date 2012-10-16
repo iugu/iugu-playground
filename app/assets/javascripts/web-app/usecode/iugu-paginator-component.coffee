@@ -53,19 +53,19 @@ class IuguPaginatorComponent extends IuguBaseComponent
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
     if numberOfButtons > totalPages
-      return _.range(1, totalPages)
+      return _.range(1, totalPages + 1)
 
-    surrounding = (numberOfButtons - 1) / 2
+    surrounding = (numberOfButtons - 3) / 2
 
     begin = currentPage - Math.floor(surrounding)
     end = currentPage + Math.ceil(surrounding)
 
-    if begin <= firstPage
-      offset = firstPage - begin
+    if begin <= firstPage + 1
+      offset = firstPage + 1 - begin
       begin += offset
       end += offset
-    else if end >= totalPages
-      offset = totalPages - end
+    else if end >= totalPages - 1
+      offset = totalPages - end - 1
       begin += offset
       end += offset
 
