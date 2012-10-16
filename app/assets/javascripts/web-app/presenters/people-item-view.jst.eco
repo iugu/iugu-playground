@@ -1,0 +1,1 @@
+<h4><%= @person.get('name') %></h4>
