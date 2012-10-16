@@ -11,21 +11,21 @@ window.app.People = Backbone.Paginator.requestPager.extend
     dataType: 'json'
 
   paginator_ui:
-    firstPage: 0
-    currentPage: 0
+    firstPage: 1
+    currentPage: 1
     perPage: 30
 
   server_api:
     'limit': ->
-      return this.perPage
+      return @perPage
 
     'start': ->
-      return this.currentPage * this.perPage
+      return (@currentPage - 1) * @perPage
 
     'api_token': ->
       return api_token
 
   parse: (response) ->
-    this.totalItems = response.totalItems
-    this.totalPages = Math.ceil(this.totalItems / this.perPage)
+    @totalRecords = response.totalItems
+    @totalPages = Math.ceil(@totalRecords / @perPage)
     return response.items

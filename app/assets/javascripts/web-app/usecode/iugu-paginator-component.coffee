@@ -11,42 +11,44 @@ class IuguPaginatorComponent extends IuguBaseComponent
     'click a.page': 'gotoPage'
     'click a.serverfirst': 'gotoFirst'
     'click a.serverpage': 'gotoPage'
-    'click .serverhowmany a': 'changeCount'
+    'click a.serverhowmany': 'changeCount'
 
   initialize: ->
     _.bindAll @, 'render'
-    this.collection.on('reset', this.render, this)
-    this.collection.on('change', this.render, this)
+    @collection.on('reset', @render, this)
+    @collection.on('change', @render, this)
 
   render: ->
-    $(@el).html JST[this.options.templatePath] collection: this.collection.info()
+    $(@el).html JST[@options.templatePath] collection: @collection.info()
 
     @
 
   nextResultPage: (e) ->
     e.preventDefault
-    this.collection.requestNextPage()
+    if @collection.information.currentPage < @collection.information.lastPage
+      @collection.requestNextPage()
 
   previousResultPage: (e) ->
     e.preventDefault
-    this.collection.requestPreviousPage()
+    if @collection.information.currentPage > @collection.information.firstPage
+      @collection.requestPreviousPage()
 
   gotoFirst: (e) ->
     e.preventDefault
-    this.collection.goTo(this.collection.information.firstPage)
+    @collection.goTo(@collection.information.firstPage)
 
   gotoLast: (e) ->
     e.preventDefault
-    this.collection.goTo(this.collection.information.lastPage)
+    @collection.goTo(@collection.information.lastPage)
 
   gotoPage: (e) ->
     e.preventDefault
-    page = $(e.target).text
-    this.collection.goTo(page)
+    page = $(e.target).text()
+    @collection.goTo(page)
 
   changeCount: (e) ->
     e.preventDefault
-    per = $(e.target).text
-    this.collection.howManyPer(per)
+    per = $(e.target).text()
+    @collection.howManyPer(per)
 
 @IuguPaginatorComponent = IuguPaginatorComponent

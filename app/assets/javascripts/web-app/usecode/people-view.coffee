@@ -40,7 +40,7 @@ class PeopleRouter extends Backbone.Router
     unless @view
       @view = new PeopleView( { collection: @people } )
 
-  index: (page = 0) ->
+  index: (page = 1) ->
     @people.goTo( page )
 
     @initializeView()

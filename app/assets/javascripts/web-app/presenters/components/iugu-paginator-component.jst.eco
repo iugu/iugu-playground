@@ -1,4 +1,19 @@
-Current Page: <%= @collection.currentPage %>
-Total Pages: <%= @collection.totalPages %><br/>
-<a href="#" class="btn serverprevious">Previous</a>
-<a href="#" class="btn servernext">Next</a>
+Results: <%= @collection.totalRecords %> - Page <%= @collection.currentPage %> of <%= @collection.totalPages %><br/>
+<br/>
+<% unless @collection.currentPage == @collection.firstPage: %>
+<a href="#" class="btn serverprevious">&larr; PREVIOUS</a>
+<a href="#" class="btn serverfirst">first</a>
+<% end %>
+<% if (@collection.currentPage - 3) > @collection.firstPage: %>
+...
+<% end %>
+<% for page in [Math.max(@collection.currentPage - 3,@collection.firstPage)..Math.min(@collection.currentPage + 3,@collection.lastPage)]: %>
+<a href="#" class="btn serverpage"><%= page %></a>
+<% end %>
+<% if (@collection.currentPage + 3) < @collection.lastPage: %>
+...
+<% end %>
+<% unless @collection.currentPage == @collection.lastPage: %>
+<a href="#" class="btn serverlast">last</a>
+<a href="#" class="btn servernext">NEXT &rarr;</a>
+<% end %>
