@@ -1,6 +1,5 @@
 class IuguDatasetRowComponent extends IuguBaseComponent
-  tagName: "div"
-  className: "iugu-dataset-row"
+  tagName: "tr"
 
   templatePath: "web-app/presenters/components/iugu-dataset-row-component"
 
