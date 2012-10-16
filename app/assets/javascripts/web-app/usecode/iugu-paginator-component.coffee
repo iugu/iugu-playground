@@ -24,8 +24,8 @@ class IuguPaginatorComponent extends IuguBaseComponent
       collection: @collection
     )
 
-    debug 'MANY TIMES'
-    
+    debug 'ON PAGINATOR RENDER'
+
     @navigator.render()
 
     @

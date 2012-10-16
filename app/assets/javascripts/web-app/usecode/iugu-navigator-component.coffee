@@ -10,17 +10,22 @@ class IuguNavigatorComponent extends IuguBaseComponent
     'change input.gotopage': 'gotoPage'
 
   initialize: ->
+    @bla = 5
     _.bindAll @, 'render', 'gotoPage'
     # @collection.on('all', @render, this)
 
   render: ->
     $(@el).html JST[@templatePath] collection: @collection.information
 
+    debug 'OKIE DOKIE'
+
     @$('input.gotopage').focus() if @lastChanged
   
     debug 'Testing'
     debug @lastChanged
     @lastChanged = false
+
+    debug @lastChanged
 
     @
 
@@ -39,6 +44,5 @@ class IuguNavigatorComponent extends IuguBaseComponent
     page = @$(e.target).val()
     @collection.goTo(page) if page <= @collection.information.lastPage and page >= @collection.information.firstPage
     @lastChanged = true
-    debug @lastChanged
 
 @IuguNavigatorComponent = IuguNavigatorComponent

@@ -16,8 +16,8 @@ class PeopleView extends Backbone.View
       collection: @collection
     )
 
-    @paginator.render()
-    @dataset.render()
+    # @paginator.render()
+    # @dataset.render()
 
     @
 
