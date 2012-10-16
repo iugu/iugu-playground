@@ -11,14 +11,15 @@ class IuguNavigatorComponent extends IuguBaseComponent
 
   initialize: ->
     _.bindAll @, 'render', 'gotoPage'
-    @collection.on('reset', @render, this)
-    @collection.on('change', @render, this)
+    # @collection.on('all', @render, this)
 
   render: ->
     $(@el).html JST[@templatePath] collection: @collection.information
 
     @$('input.gotopage').focus() if @lastChanged
-    
+  
+    debug 'Testing'
+    debug @lastChanged
     @lastChanged = false
 
     @
@@ -38,5 +39,6 @@ class IuguNavigatorComponent extends IuguBaseComponent
     page = @$(e.target).val()
     @collection.goTo(page) if page <= @collection.information.lastPage and page >= @collection.information.firstPage
     @lastChanged = true
+    debug @lastChanged
 
 @IuguNavigatorComponent = IuguNavigatorComponent

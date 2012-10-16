@@ -14,8 +14,7 @@ class IuguPaginatorComponent extends IuguBaseComponent
 
   initialize: ->
     _.bindAll @, 'render'
-    @collection.on('reset', @render, this)
-    @collection.on('change', @render, this)
+    @collection.on('all', @render, this)
 
   render: ->
     $(@el).html JST[@templatePath] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
@@ -24,6 +23,8 @@ class IuguPaginatorComponent extends IuguBaseComponent
       el: @$('.navigator')
       collection: @collection
     )
+
+    debug 'MANY TIMES'
     
     @navigator.render()
 
