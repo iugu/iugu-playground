@@ -1,3 +1,6 @@
-<a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.firstPage %> serverprevious">&larr; PREVIOUS</a>
-<a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.lastPage %> servernext">NEXT &rarr;</a>
-<input class="gotopage" type="text" value=<%= @collection.currentPage %>></input>
+<section style="background:#FFF;padding-top:5px;padding-bottom:5px">
+  <input class="gotopage" type="text" style="width: 44px; text-align: center;margin-bottom:1px" value=<%= @collection.currentPage %>></input>
+
+  <a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.firstPage %> serverprevious"><i class="icon-chevron-left"></i></a>
+  <a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.lastPage %> servernext"><i class="icon-chevron-right"></i></a>
+</section>
