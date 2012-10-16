@@ -1,8 +1,6 @@
 Results: <%= @collection.totalRecords %> - Page <%= @collection.currentPage %> of <%= @collection.totalPages %><br/>
 <br/>
-<% unless @collection.currentPage == @collection.firstPage: %>
-<a href="#" class="btn serverprevious">&larr; PREVIOUS</a>
-<% end %>
+<a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.firstPage %> serverprevious">&larr; PREVIOUS</a>
 <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.firstPage %> serverfirst"><%= @collection.firstPage %></a>
 <% if (@collection.currentPage - 3) > @collection.firstPage: %>
 ...
@@ -14,6 +12,4 @@ Results: <%= @collection.totalRecords %> - Page <%= @collection.currentPage %> o
 ...
 <% end %>
 <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.lastPage %> serverlast"><%= @collection.lastPage %></a>
-<% unless @collection.currentPage == @collection.lastPage: %>
-<a href="#" class="btn servernext">NEXT &rarr;</a>
-<% end %>
+<a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.lastPage %> servernext">NEXT &rarr;</a>
