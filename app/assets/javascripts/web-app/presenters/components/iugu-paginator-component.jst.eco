@@ -7,7 +7,7 @@ Results: <%= @collection.totalRecords %> - Page <%= @collection.currentPage %> o
 <% if (@collection.currentPage - 3) > @collection.firstPage: %>
 ...
 <% end %>
-<% for page in [Math.max(@collection.currentPage - 3,@collection.firstPage)..Math.min(@collection.currentPage + 3,@collection.lastPage)]: %>
+<% for page in @pageButtons: %>
 <a href="#" class="btn serverpage"><%= page %></a>
 <% end %>
 <% if (@collection.currentPage + 3) < @collection.lastPage: %>

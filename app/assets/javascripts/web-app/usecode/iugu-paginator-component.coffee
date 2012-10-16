@@ -19,7 +19,7 @@ class IuguPaginatorComponent extends IuguBaseComponent
     @collection.on('change', @render, this)
 
   render: ->
-    $(@el).html JST[@options.templatePath] collection: @collection.info()
+    $(@el).html JST[@options.templatePath] collection: @collection.info(), pageButtons: @pageButtonsToShow(7, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
 
     @
 
@@ -50,5 +50,26 @@ class IuguPaginatorComponent extends IuguBaseComponent
     e.preventDefault
     per = $(e.target).text()
     @collection.howManyPer(per)
+
+  pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
+    if numberOfButtons > totalPages
+      return _.range(1, totalPages)
+
+    surrounding = (numberOfButtons - 1) / 2
+
+    begin = currentPage - Math.floor(surrounding)
+    end = currentPage + Math.ceil(surrounding)
+
+    if begin <= firstPage
+      offset = firstPage - begin
+      begin += offset
+      end += offset
+    else if end >= totalPages
+      offset = totalPages - end
+      begin += offset
+      end += offset
+
+    _.range(begin, end + 1)
+
 
 @IuguPaginatorComponent = IuguPaginatorComponent
