@@ -1,0 +1,4 @@
+Current Page: <%= @collection.currentPage %>
+Total Pages: <%= @collection.totalPages %><br/>
+<a href="#" class="serverprevious">Previous</a>
+<a href="#" class="servernext">Next</a>

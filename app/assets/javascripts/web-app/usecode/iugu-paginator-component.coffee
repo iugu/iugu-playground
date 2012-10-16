@@ -17,15 +17,17 @@ class IuguPaginator extends Backbone.View
     this.collection.on('change', this.render, this)
 
   render: ->
-    $(@el).html JST["web-app/presenters/components/iugu-paginator-component.eco.jst"] collection: this.collection.info
+    $(@el).html JST["web-app/presenters/components/iugu-paginator-component"] collection: this.collection.info()
+
+    @
 
   nextResultPage: (e) ->
     e.preventDefault
-    this.collection.requestNextPage
+    this.collection.requestNextPage()
 
   previousResultPage: (e) ->
     e.preventDefault
-    this.collection.requestPreviousPage
+    this.collection.requestPreviousPage()
 
   gotoFirst: (e) ->
     e.preventDefault
@@ -44,3 +46,5 @@ class IuguPaginator extends Backbone.View
     e.preventDefault
     per = $(e.target).text
     this.collection.howManyPer(per)
+
+@IuguPaginator = IuguPaginator
