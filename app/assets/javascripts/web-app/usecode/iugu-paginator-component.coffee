@@ -9,11 +9,11 @@ class IuguPaginatorComponent extends IuguBaseComponent
     'click a.page': 'gotoPage'
     'click a.next': ->
       @collection.gotoNext()
-      @historyNavigate @collection.information.currentPage
+      @historyNavigate (@collection.information.currentPage + 1).toString()
       false
     'click a.previous': ->
       @collection.gotoPrevious()
-      @historyNavigate @collection.information.currentPage
+      @historyNavigate (@collection.information.currentPage - 1).toString()
       false
 
   initialize: ->

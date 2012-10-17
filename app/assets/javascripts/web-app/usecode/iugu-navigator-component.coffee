@@ -6,11 +6,11 @@ class IuguNavigatorComponent extends IuguBaseComponent
   events:
     'click a.next': ->
       @collection.gotoNext()
-      @historyNavigate @collection.information.currentPage.toString()
+      @historyNavigate (@collection.information.currentPage + 1).toString()
       false
     'click a.previous': ->
       @collection.gotoPrevious()
-      @historyNavigate @collection.information.currentPage.toString()
+      @historyNavigate (@collection.information.currentPage - 1).toString()
       false
     'change input.page': 'changedPage'
 
