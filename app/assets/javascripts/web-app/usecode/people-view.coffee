@@ -10,16 +10,19 @@ class PeopleView extends Backbone.View
       el: @$('.collection-pagination')
       collection: @collection
       enableAdditionalButtons: false
+      baseURL: "people"
     )
 
     @navigator = new IuguNavigatorComponent(
       el: @$('.collection-navigation')
       collection: @collection
+      baseURL: "people"
     )
 
     @dataset = new IuguDatasetComponent(
       el: @$('.collection-rows')
       collection: @collection
+      baseURL: "people"
     )
 
     # @paginator.render()
@@ -37,8 +40,8 @@ class PeopleRouter extends Backbone.Router
     @
 
   routes:
-    ""      : "index"
-    ":page" : "index"
+    "people"      : "index"
+    "people/:page" : "index"
 
   initializeView: ->
     unless @view

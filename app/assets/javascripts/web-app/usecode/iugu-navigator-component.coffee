@@ -1,26 +1,28 @@
 class IuguNavigatorComponent extends IuguBaseComponent
   defaults:
     presenterName: "iugu-navigator-component"
+    baseURL: ""
 
   events:
     'click a.next': ->
       @collection.gotoNext()
-      Backbone.history.navigate @collection.information.currentPage.toString()
+      @historyNavigate @collection.information.currentPage.toString()
       false
     'click a.previous': ->
       @collection.gotoPrevious()
-      Backbone.history.navigate @collection.information.currentPage.toString()
+      @historyNavigate @collection.information.currentPage.toString()
       false
     'change input.page': 'changedPage'
 
   changedPage: (e) ->
+    e.preventDefault()
     old_page = @collection.currentPage
     page = $(e.target).val()
     page = old_page if page == ''
     if @collection.information.lastPage+1 > page
       @collection.goTo( page )
       @lastChanged = true
-      Backbone.history.navigate page
+      @historyNavigate page
       true
     else
       $(e.target).val( old_page )

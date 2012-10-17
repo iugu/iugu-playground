@@ -3,16 +3,17 @@ class IuguPaginatorComponent extends IuguBaseComponent
     presenterName: "iugu-paginator-component"
     numberOfPageButtons: 9
     enableAdditionalButtons: true
+    baseURL: ""
 
   events:
     'click a.page': 'gotoPage'
     'click a.next': ->
       @collection.gotoNext()
-      Backbone.history.navigate @collection.information.currentPage
+      @historyNavigate @collection.information.currentPage
       false
     'click a.previous': ->
       @collection.gotoPrevious()
-      Backbone.history.navigate @collection.information.currentPage
+      @historyNavigate @collection.information.currentPage
       false
 
   initialize: ->
@@ -26,10 +27,10 @@ class IuguPaginatorComponent extends IuguBaseComponent
     @
 
   gotoPage: (e) ->
-    e.preventDefault
+    e.preventDefault()
     page = $(e.target).text()
     @collection.goTo(page)
-    Backbone.history.navigate page
+    @historyNavigate page
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
     if numberOfButtons > totalPages

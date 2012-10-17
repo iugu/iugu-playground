@@ -1,13 +1,16 @@
 class IuguDatasetRowComponent extends IuguBaseComponent
   tagName: "tr"
 
-  templatePath: "web-app/presenters/components/iugu-dataset-row-component"
+  defaults:
+    presenterName: "iugu-dataset-row-component"
+    baseURL: ""
 
   initialize: ->
+    super
     _.bindAll @, 'render'
 
   render: ->
-    $(@el).html JST[this.options.templatePath] item: @model
+    $(@el).html JST[@presenterFile()] item: @model
 
     @
 

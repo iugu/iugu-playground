@@ -1,8 +1,10 @@
 class IuguDatasetComponent extends IuguBaseComponent
-  templatePath: "web-app/presenters/components/iugu-dataset-component"
-  itemTemplatePath: "web-app/presenters/components/iugu-dataset-row-component"
+  defaults:
+    presenterName: "iugu-dataset-component"
+    baseURL: ""
 
   initialize: ->
+    super
     _.bindAll @, 'render', 'addRow'
     @collection.on('all', @render)
     @
@@ -11,11 +13,11 @@ class IuguDatasetComponent extends IuguBaseComponent
     @els.push (
       new IuguDatasetRowComponent
         model: item
-        templatePath: @itemTemplatePath
+        baseURL: @options.baseURL
     ).render().el
 
   render: ->
-    $(@el).html JST[@templatePath] dataset: @collection
+    $(@el).html JST[@presenterFile()] dataset: @collection
 
     @els = []
     @collection.each @addRow
