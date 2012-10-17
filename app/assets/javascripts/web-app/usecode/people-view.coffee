@@ -31,11 +31,9 @@ class PeopleView extends Backbone.View
 
 class PeopleRouter extends Backbone.Router
   initialize: ->
-    # TODO: Precisamos de um lugar melhor para acessar coleções existentes
-    window.app._collections = {}
-    window.app._collections.People = new app.People
-    window.app._collections.People.paginator_ui.perPage = 10
-    debug window.app._collections
+    app.peopleRouter = @
+    app.people = new app.People
+    app.people.paginator_ui.perPage = 10
     @
 
   routes:
@@ -44,10 +42,10 @@ class PeopleRouter extends Backbone.Router
 
   initializeView: ->
     unless @view
-      @view = new PeopleView( { collection: window.app._collections.People } )
+      @view = new PeopleView( { collection: app.people } )
 
   index: (page = 1) ->
-    app._collections.People.goTo( page )
+    app.people.goTo( page )
 
     @initializeView()
     @view.render()
