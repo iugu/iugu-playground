@@ -1,14 +1,14 @@
 class IuguNavigatorComponent extends IuguBaseComponent
-  templatePath: "web-app/presenters/components/iugu-navigator-component"
+  presenterName: "iugu-navigator-component"
 
   events:
-    'click a.servernext': ->
+    'click a.next': ->
       @collection.gotoNext()
       false
-    'click a.serverprevious': ->
+    'click a.previous': ->
       @collection.gotoPrevious()
       false
-    'change input.gotopage': 'changedPage'
+    'change input.page': 'changedPage'
 
   changedPage: (e) ->
     old_page = @collection.currentPage
@@ -29,9 +29,9 @@ class IuguNavigatorComponent extends IuguBaseComponent
     @collection.on('all', @render, this)
 
   render: ->
-    $(@el).html JST[@templatePath] collection: @collection.information
+    $(@el).html JST[@presenterFile()] collection: @collection.information
 
-    @$('input.gotopage').focus() if @lastChanged
+    @$('input.page').focus() if @lastChanged
     @lastChanged = false
 
     @

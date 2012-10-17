@@ -1,16 +1,22 @@
 class IuguPaginatorComponent extends IuguBaseComponent
-  templatePath: "web-app/presenters/components/iugu-paginator-component"
+  presenterName: "iugu-paginator-component"
   numberOfPageButtons: 9
 
   events:
-    'click a.serverpage': 'gotoPage'
+    'click a.page': 'gotoPage'
+    'click a.next': ->
+      @collection.gotoNext()
+      false
+    'click a.previous': ->
+      @collection.gotoPrevious()
+      false
 
   initialize: ->
     _.bindAll @
     @collection.on('all', @render, this)
 
   render: ->
-    $(@el).html JST[@templatePath] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
+    $(@el).html JST[@presenterFile()] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
 
     @
 
