@@ -1,7 +1,8 @@
 class IuguPaginatorComponent extends IuguBaseComponent
-  presenterName: "iugu-paginator-component"
-  numberOfPageButtons: 9
-  enableAdditionalButtons: true
+  defaults:
+    presenterName: "iugu-paginator-component"
+    numberOfPageButtons: 9
+    enableAdditionalButtons: true
 
   events:
     'click a.page': 'gotoPage'
@@ -17,8 +18,6 @@ class IuguPaginatorComponent extends IuguBaseComponent
   initialize: ->
     _.bindAll @
     super
-    @options.numberOfPageButtons = @numberOfPageButtons if @options.numberOfPageButtons == undefined
-    @options.enableAdditionalButtons = @enableAdditionalButtons if @options.enableAdditionalButtons == undefined
     @collection.on('all', @render, this)
 
   render: ->

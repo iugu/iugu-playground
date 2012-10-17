@@ -1,8 +1,7 @@
 class IuguBaseComponent extends Backbone.View
-  presenterName: ""
 
   initialize: ->
-    @options.presenterName = @presenterName if @options.presenterName == undefined
+    @options = _.extend @defaults, @options
 
   render: ->
     $(@el).html JST[this.options.templatePath]

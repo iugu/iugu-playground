@@ -1,5 +1,6 @@
 class IuguNavigatorComponent extends IuguBaseComponent
-  presenterName: "iugu-navigator-component"
+  defaults:
+    presenterName: "iugu-navigator-component"
 
   events:
     'click a.next': ->
