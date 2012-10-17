@@ -1,9 +1,8 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-hover" style="margin-bottom: 0px">
   <thead>
     <tr>
       <th style="text-align:center" width="100">ID</th>
       <th>Name</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>

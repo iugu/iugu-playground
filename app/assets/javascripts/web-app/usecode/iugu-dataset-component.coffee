@@ -16,7 +16,7 @@ class IuguDatasetComponent extends IuguBaseComponent
     ).render().el
 
   render: ->
-    $(@el).html JST[@templatePath]
+    $(@el).html JST[@templatePath] dataset: @collection
 
     @els = []
     @collection.each @addRow

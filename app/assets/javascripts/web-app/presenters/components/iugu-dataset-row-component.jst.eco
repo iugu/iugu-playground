@@ -1,3 +1,2 @@
 <td style="text-align:center"><%= @item.get('id') %></td>
 <td><%= @item.get('name') %></td>
-<td></td>

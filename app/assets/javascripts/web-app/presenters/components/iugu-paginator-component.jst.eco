@@ -1,10 +1,20 @@
-Results: <%= @collection.totalRecords %> - Page <%= @collection.currentPage %> of <%= @collection.totalPages %><br/>
-<br/>
-<a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.firstPage %> serverfirst"><%= @collection.firstPage %></a>
-<% @pageButtons[0] = '...' if (@collection.currentPage - 3) > @collection.firstPage %>
-<% @pageButtons[@pageButtons.length - 1] = '...' if (@collection.currentPage + 3) < @collection.lastPage %>
-<% for page in @pageButtons: %>
-<a href="#" class="btn <%= "btn-primary" if @collection.currentPage == page %> <%= "disabled" if page == '...' %> serverpage"><%= page %></a>
-<% end %>
-<a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.lastPage %> serverlast"><%= @collection.lastPage %></a>
-<div class="navigator"></div>
+<style type="text/css">
+  .paginator .btn {
+    min-width: 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .paginator-text {
+    color: #999;
+    font-size: 12px;
+  }
+</style>
+<div class="btn-group paginator">
+  <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.firstPage %> serverfirst"><%= @collection.firstPage %></a>
+  <% @pageButtons[0] = '...' if (@collection.currentPage - 3) > @collection.firstPage %>
+  <% @pageButtons[@pageButtons.length - 1] = '...' if (@collection.currentPage + 3) < @collection.lastPage %>
+  <% for page in @pageButtons: %>
+  <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == page %> <%= "disabled" if page == '...' %> serverpage"><%= page %></a>
+  <% end %>
+  <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.lastPage %> serverlast"><%= @collection.lastPage %></a>
+</div>
