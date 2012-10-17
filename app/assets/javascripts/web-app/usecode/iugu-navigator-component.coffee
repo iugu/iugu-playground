@@ -13,8 +13,9 @@ class IuguNavigatorComponent extends IuguBaseComponent
   changedPage: (e) ->
     old_page = @collection.currentPage
     page = $(e.target).val()
+    page = old_page if page == ''
     if @collection.information.lastPage+1 > page
-      @collection.goTo( $(e.target).val() )
+      @collection.goTo( page )
       @lastChanged = true
       true
     else
