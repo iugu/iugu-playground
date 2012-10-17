@@ -11,6 +11,11 @@ class PeopleView extends Backbone.View
       collection: @collection
     )
 
+    @navigator = new IuguNavigatorComponent(
+      el: @$('.collection-navigation')
+      collection: @collection
+    )
+
     @dataset = new IuguDatasetComponent(
       el: @$('.collection-rows')
       collection: @collection

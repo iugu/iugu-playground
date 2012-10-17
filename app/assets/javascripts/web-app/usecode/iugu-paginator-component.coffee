@@ -1,46 +1,23 @@
 class IuguPaginatorComponent extends IuguBaseComponent
-  tagName: "div"
-  className: "iugu-paginator"
-
   templatePath: "web-app/presenters/components/iugu-paginator-component"
   numberOfPageButtons: 9
 
   events:
-    'click a.serverlast': 'gotoLast'
-    'click a.page': 'gotoPage'
-    'click a.serverfirst': 'gotoFirst'
     'click a.serverpage': 'gotoPage'
-    'click a.serverhowmany': 'changeCount'
 
   initialize: ->
-    _.bindAll @, 'render'
+    _.bindAll @
     @collection.on('all', @render, this)
 
   render: ->
     $(@el).html JST[@templatePath] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
 
-    @navigator = new IuguNavigatorComponent(
-      el: @$('.navigator')
-      collection: @collection
-    )
-
-    debug 'ON PAGINATOR RENDER'
-
-    @navigator.render()
-
     @
-
-  gotoFirst: (e) ->
-    e.preventDefault
-    @collection.goTo(@collection.information.firstPage)
-
-  gotoLast: (e) ->
-    e.preventDefault
-    @collection.goTo(@collection.information.lastPage)
 
   gotoPage: (e) ->
     e.preventDefault
     page = $(e.target).text()
+    debug 'ok'
     @collection.goTo(page)
 
   changeCount: (e) ->

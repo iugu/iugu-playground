@@ -29,3 +29,17 @@ window.app.People = Backbone.Paginator.requestPager.extend
     @totalRecords = response.totalItems
     @totalPages = Math.ceil(@totalRecords / @perPage)
     return response.items
+
+  gotoFirst: ->
+    @goTo @information.firstPage
+
+  gotoLast: ->
+    @goTo @information.lastPage
+
+  gotoNext: ->
+    if @information.currentPage < @information.lastPage
+      @requestNextPage()
+
+  gotoPrevious: ->
+    if @information.currentPage > 1
+      @requestPreviousPage()
