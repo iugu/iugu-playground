@@ -7,12 +7,12 @@ class IuguDatasetComponent extends IuguBaseComponent
 
   initialize: ->
     super
-    _.bindAll @, 'render', 'addRow'
+    _.bindAll @, 'render', 'addRecord'
     @collection.on('all', @render)
 
     @
 
-  addRow: (item) ->
+  addRecord: (item) ->
     @els.push (
       new IuguDatasetRecordComponent
         model: item
@@ -25,7 +25,7 @@ class IuguDatasetComponent extends IuguBaseComponent
     $(@el).html JST[@presenterFile()] dataset: @collection, options: @options
 
     @els = []
-    @collection.each @addRow
+    @collection.each @addRecord
     @$('.records').append(@els)
 
     @
