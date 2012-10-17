@@ -7,30 +7,30 @@ class IuguPaginatorComponent extends IuguBaseComponent
     'click a.page': 'gotoPage'
     'click a.next': ->
       @collection.gotoNext()
+      Backbone.history.navigate @collection.information.currentPage
       false
     'click a.previous': ->
       @collection.gotoPrevious()
+      Backbone.history.navigate @collection.information.currentPage
       false
 
   initialize: ->
     _.bindAll @
+    super
+    @options.numberOfPageButtons = @numberOfPageButtons if @options.numberOfPageButtons == undefined
+    @options.enableAdditionalButtons = @enableAdditionalButtons if @options.enableAdditionalButtons == undefined
     @collection.on('all', @render, this)
 
   render: ->
-    $(@el).html JST[@presenterFile()] collection: @collection.info(), pageButtons: @pageButtonsToShow(@numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage)
+    $(@el).html JST[@presenterFile()] collection: @collection.info(), pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage), enableAdditionalButtons: @options.enableAdditionalButtons
 
     @
 
   gotoPage: (e) ->
     e.preventDefault
     page = $(e.target).text()
-    debug 'ok'
     @collection.goTo(page)
-
-  changeCount: (e) ->
-    e.preventDefault
-    per = $(e.target).text()
-    @collection.howManyPer(per)
+    Backbone.history.navigate page
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
     if numberOfButtons > totalPages

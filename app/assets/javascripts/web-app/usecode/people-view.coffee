@@ -37,8 +37,8 @@ class PeopleRouter extends Backbone.Router
     @
 
   routes:
-    ""      : "index"
-    ":page" : "index"
+    "people"      : "index"
+    "people/:page" : "index"
 
   initializeView: ->
     unless @view

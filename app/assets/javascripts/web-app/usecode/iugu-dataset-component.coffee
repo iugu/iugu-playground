@@ -8,7 +8,6 @@ class IuguDatasetComponent extends IuguBaseComponent
     @
 
   addRow: (item) ->
-    debug item
     @els.push (
       new IuguDatasetRowComponent
         model: item

@@ -4,9 +4,11 @@ class IuguNavigatorComponent extends IuguBaseComponent
   events:
     'click a.next': ->
       @collection.gotoNext()
+      Backbone.history.navigate @collection.information.currentPage.toString()
       false
     'click a.previous': ->
       @collection.gotoPrevious()
+      Backbone.history.navigate @collection.information.currentPage.toString()
       false
     'change input.page': 'changedPage'
 
@@ -17,6 +19,7 @@ class IuguNavigatorComponent extends IuguBaseComponent
     if @collection.information.lastPage+1 > page
       @collection.goTo( page )
       @lastChanged = true
+      Backbone.history.navigate page
       true
     else
       $(e.target).val( old_page )
@@ -26,6 +29,7 @@ class IuguNavigatorComponent extends IuguBaseComponent
 
   initialize: ->
     _.bindAll @
+    super
     @collection.on('all', @render, this)
 
   render: ->
