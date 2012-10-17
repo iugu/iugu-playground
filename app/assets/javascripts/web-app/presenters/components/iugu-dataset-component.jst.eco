@@ -1,10 +1,2 @@
-<table class="table table-bordered table-hover" style="margin-bottom: 0px">
-  <thead>
-    <tr>
-      <th style="text-align:center" width="100">ID</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+<ul class="thumbnails records">
+</ul>

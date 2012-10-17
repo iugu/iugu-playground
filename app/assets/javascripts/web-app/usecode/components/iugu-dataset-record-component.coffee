@@ -1,5 +1,6 @@
 class IuguDatasetRecordComponent extends IuguBaseComponent
-  tagName: "tr"
+  tagName: "li"
+  className: "span4"
 
   defaults:
     presenterName: "iugu-dataset-record-component"
