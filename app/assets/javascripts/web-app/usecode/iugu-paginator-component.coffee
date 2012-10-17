@@ -1,6 +1,7 @@
 class IuguPaginatorComponent extends IuguBaseComponent
   presenterName: "iugu-paginator-component"
   numberOfPageButtons: 9
+  enableAdditionalButtons: true
 
   events:
     'click a.page': 'gotoPage'

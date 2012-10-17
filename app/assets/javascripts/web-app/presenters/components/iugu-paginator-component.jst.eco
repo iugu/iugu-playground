@@ -10,7 +10,9 @@
   }
 </style>
 <div class="btn-group paginator">
+  <% if @enableAdditionalButtons: %>
   <a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.firstPage %> previous"><i class="icon-chevron-left"></i></a>
+  <% end %>
   <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.firstPage %> page"><%= @collection.firstPage %></a>
   <% @pageButtons[0] = '...' if (@collection.currentPage - 3) > @collection.firstPage %>
   <% @pageButtons[@pageButtons.length - 1] = '...' if (@collection.currentPage + 3) < @collection.lastPage %>
@@ -18,5 +20,7 @@
   <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == page %> <%= "disabled" if page == '...' %> page"><%= page %></a>
   <% end %>
   <a href="#" class="btn <%= "btn-primary" if @collection.currentPage == @collection.lastPage %> page"><%= @collection.lastPage %></a>
+  <% if @enableAdditionalButtons: %>
   <a href="#" class="btn <%= "disabled" if @collection.currentPage == @collection.lastPage %> next"><i class="icon-chevron-right"></i></a>
+  <% end %>
 </div>

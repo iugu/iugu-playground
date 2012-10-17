@@ -9,6 +9,7 @@ class PeopleView extends Backbone.View
     @paginator = new IuguPaginatorComponent(
       el: @$('.collection-pagination')
       collection: @collection
+      enableAdditionalButtons: false
     )
 
     @navigator = new IuguNavigatorComponent(
