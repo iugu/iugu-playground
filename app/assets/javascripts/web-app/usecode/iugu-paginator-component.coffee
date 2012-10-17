@@ -9,11 +9,9 @@ class IuguPaginatorComponent extends IuguBaseComponent
     'click a.page': 'gotoPage'
     'click a.next': ->
       @collection.gotoNext()
-      @historyNavigate (@collection.information.currentPage + 1).toString()
       false
     'click a.previous': ->
       @collection.gotoPrevious()
-      @historyNavigate (@collection.information.currentPage - 1).toString()
       false
 
   initialize: ->
@@ -24,13 +22,14 @@ class IuguPaginatorComponent extends IuguBaseComponent
   render: ->
     $(@el).html JST[@presenterFile()] collection: @collection.info(), pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage), enableAdditionalButtons: @options.enableAdditionalButtons
 
+    @historyNavigate @collection.currentPage
+
     @
 
   gotoPage: (e) ->
     e.preventDefault()
     page = $(e.target).text()
     @collection.goTo(page)
-    @historyNavigate page
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
     if numberOfButtons > totalPages

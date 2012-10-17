@@ -6,11 +6,9 @@ class IuguNavigatorComponent extends IuguBaseComponent
   events:
     'click a.next': ->
       @collection.gotoNext()
-      @historyNavigate (@collection.information.currentPage + 1).toString()
       false
     'click a.previous': ->
       @collection.gotoPrevious()
-      @historyNavigate (@collection.information.currentPage - 1).toString()
       false
     'change input.page': 'changedPage'
 
@@ -22,7 +20,6 @@ class IuguNavigatorComponent extends IuguBaseComponent
     if @collection.information.lastPage+1 > page
       @collection.goTo( page )
       @lastChanged = true
-      @historyNavigate page
       true
     else
       $(e.target).val( old_page )
@@ -40,6 +37,8 @@ class IuguNavigatorComponent extends IuguBaseComponent
 
     @$('input.page').focus() if @lastChanged
     @lastChanged = false
+
+    @historyNavigate @collection.currentPage
 
     @
 
