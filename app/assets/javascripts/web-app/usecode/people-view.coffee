@@ -19,14 +19,15 @@ class PeopleView extends Backbone.View
       baseURL: "people"
     )
 
-    @dataset = new IuguDatasetComponent(
+    @table = new IuguTableComponent(
       el: @$('.collection-rows')
       collection: @collection
       baseURL: "people"
+      fields:
+        id: "#"
+        name: "Name"
+        age: "Age"
     )
-
-    # @paginator.render()
-    # @dataset.render()
 
     @
 

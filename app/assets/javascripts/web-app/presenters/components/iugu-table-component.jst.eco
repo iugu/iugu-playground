@@ -1,0 +1,11 @@
+<table class="table table-bordered table-hover" style="margin-bottom: 0px">
+  <thead>
+    <tr>
+      <% for field in _.values(@options.fields): %>
+      <th><%= field %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody class="records">
+  </tbody>
+</table>
