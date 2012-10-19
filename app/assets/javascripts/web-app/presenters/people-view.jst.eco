@@ -10,7 +10,7 @@
 }
 </style>
 <div style="margin-top:10px">
-  <div class="collection-rows" style="height:386px;overflow-y:auto;margin-bottom:20px">
+  <div class="collection-dataset" style="height:386px;overflow-y:auto;margin-bottom:20px">
   </div>
 
   <div class="clearfix">

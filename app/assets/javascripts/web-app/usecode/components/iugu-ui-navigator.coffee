@@ -1,7 +1,6 @@
-class IuguNavigatorComponent extends IuguBaseComponent
-  defaults:
-    presenterName: "iugu-navigator-component"
-    baseURL: ""
+class IuguUI.Navigator extends IuguUI.Base
+
+  layout: "components/iugu-ui-navigator"
 
   events:
     'click a.next': ->
@@ -25,21 +24,19 @@ class IuguNavigatorComponent extends IuguBaseComponent
       $(e.target).val( old_page )
       $(e.target).select()
       false
-      
 
   initialize: ->
-    _.bindAll @
     super
     @collection.on('all', @render, this)
+    @collection.on('all', @setFocus, this)
 
-  render: ->
-    $(@el).html JST[@presenterFile()] collection: @collection.information
+  context: ->
+    return {
+      collection: @collection.info()
+    }
 
+  setFocus: ->
     @$('input.page').focus() if @lastChanged
     @lastChanged = false
 
-    @historyNavigate @collection.currentPage
-
-    @
-
-@IuguNavigatorComponent = IuguNavigatorComponent
+@IuguUI.Navigator = IuguUI.Navigator

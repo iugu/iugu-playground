@@ -1,4 +1,0 @@
-<div class="thumbnail">
-  <h3>#<%= @item.id %> - <%= @item.get('name') %></h3>
-  <p>Age: <%= @item.get('age') %></p>
-</div>

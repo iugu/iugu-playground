@@ -1,4 +1,4 @@
-class PeopleView extends IuguBaseComponent
+class PeopleView extends IuguUI.Base
   el: '#app-content'
   layout: 'people-view'
 
@@ -6,48 +6,34 @@ class PeopleView extends IuguBaseComponent
     _.bindAll @, 'render'
     super
 
-    # Os initializers agora ficam aqui
-    @paginator = new IuguPaginatorComponent
+    @paginator = new IuguUI.Paginator
       collection: @collection
       enableAdditionalButtons: false
+      baseURL: @options.baseURL
+
+    @dataset = new IuguUI.Dataset
+      collection: @collection
+      baseURL: @options.baseURL
+      fields:
+        id: "#"
+        name: "Name"
+        age: "Age"
+
+    @navigator = new IuguUI.Navigator
+      collection: @collection
       baseURL: @options.baseURL
 
   render: ->
     super
 
-    # Este novo método permite renderizar uma sub view que nem fazia parte disto, ex: @app.HeaderButtons
     @delegateChild(
       '.collection-pagination'            : @paginator
+      '.collection-dataset'               : @dataset
+      '.collection-navigation'            : @navigator
     )
 
     @
     
-###
-  render: ->
-    @$el.html @template
-    
-    @paginator = new IuguPaginatorComponent(
-      el: @$('.collection-pagination')
-      collection: @collection
-      enableAdditionalButtons: false
-      baseURL: "people"
-    )
-
-    @navigator = new IuguNavigatorComponent(
-      el: @$('.collection-navigation')
-      collection: @collection
-      baseURL: "people"
-    )
-
-    @dataset = new IuguDatasetComponent(
-      el: @$('.collection-rows')
-      collection: @collection
-      baseURL: "people"
-    )
-
-    @
-###
-
 @PeopleView = PeopleView
 
 class PeopleRouter extends Backbone.Router

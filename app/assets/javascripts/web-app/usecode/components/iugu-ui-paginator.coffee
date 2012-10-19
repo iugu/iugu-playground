@@ -1,10 +1,10 @@
-class IuguPaginatorComponent extends IuguBaseComponent
+class IuguUI.Paginator extends IuguUI.Base
+
+  layout: "components/iugu-ui-paginator"
 
   defaults:
-    presenterName: "components/iugu-paginator-component"
     numberOfPageButtons: 9
     enableAdditionalButtons: true
-    baseURL: ""
 
   events:
     'click a.page': 'gotoPage'
@@ -16,18 +16,15 @@ class IuguPaginatorComponent extends IuguBaseComponent
       false
 
   initialize: ->
-    _.bindAll @
     super
     @collection.on('all', @render, this)
 
-  render: ->
-    # TODO: Melhorar isto
-    $(@el).html @layoutFile() collection: @collection.info(), pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.information.firstPage, @collection.information.totalPages, @collection.information.currentPage), enableAdditionalButtons: @options.enableAdditionalButtons
-
-    # TODO: Isto tem que sair daqui
-    @historyNavigate @collection.currentPage
-
-    @
+  context: ->
+    return {
+      collection: @collection.info()
+      pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.info().firstPage, @collection.info().totalPages, @collection.info().currentPage)
+      enableAdditionalButtons: @options.enableAdditionalButtons
+    }
 
   gotoPage: (e) ->
     e.preventDefault()
@@ -55,4 +52,4 @@ class IuguPaginatorComponent extends IuguBaseComponent
     _.range(begin, end + 1)
 
 
-@IuguPaginatorComponent = IuguPaginatorComponent
+@IuguUI.Paginator = IuguUI.Paginator
