@@ -10,10 +10,14 @@ class PeopleView extends IuguUI.Base
       collection: @collection
       enableAdditionalButtons: false
       baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-paginator'
 
-    # @dataset = new IuguUI.Dataset
-    #  collection: @collection
-    #  baseURL: @options.baseURL
+    @dataset = new IuguUI.Dataset
+      collection: @collection
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-dataset'
 
     @table = new IuguUI.Table
       collection: @collection
@@ -22,10 +26,14 @@ class PeopleView extends IuguUI.Base
         id: "#"
         name: "Name"
         age: "Age"
+      parent: @
+      identifier: 'people-table'
 
     @navigator = new IuguUI.Navigator
       collection: @collection
       baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-navigator'
 
   render: ->
     super

@@ -3,10 +3,7 @@ class IuguUI.Table extends IuguUI.Dataset
 
   defaults:
     itemLayout: "components/iugu-ui-table-row"
-
-  initialize: ->
-    super
-
-    debug @options.itemLayout
+    itemTagName: "tr"
+    itemClassName: "table-row"
 
 @IuguUI.Table = IuguUI.Table

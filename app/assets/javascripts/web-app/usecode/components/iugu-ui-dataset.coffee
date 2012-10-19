@@ -3,24 +3,26 @@ class IuguUI.Dataset extends IuguUI.Base
 
   defaults:
     itemLayout: "components/iugu-ui-dataset-record"
+    itemTagName: "div"
+    itemClassName: "record"
 
   initialize: ->
     super
     _.bindAll @, 'renderItems', 'addRecord'
     @collection.on('all', @render)
 
-    debug 'INITIALIZE'
-
     @
 
   addRecord: (item) ->
-    debug @options
     @els.push (
       new IuguUI.DatasetRecord
         model: item
         baseURL: @options.baseURL
         layout: @options.itemLayout
         fields: @options.fields
+        tagName: @options.itemTagName
+        className: @options.itemClassName
+        parent: @
     ).render().el
 
   context: ->

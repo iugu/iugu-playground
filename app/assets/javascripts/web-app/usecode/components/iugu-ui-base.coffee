@@ -4,9 +4,13 @@ class IuguUI.Base extends Backbone.View
     baseURL: ""
 
   initialize: ->
-    _.bindAll @, 'render'
+    _.bindAll @, 'render', 'root'
     @options = _.extend {}, @defaults, @options
+
     @layout = @options.layout if @options.layout
+    @parent = @options.parent if @options.parent
+    
+    @identifier = ( -> @options.identifier + ':' ) if @options.identifier
 
     @
 
@@ -23,6 +27,12 @@ class IuguUI.Base extends Backbone.View
 
   historyNavigate: (url) ->
     Backbone.history.navigate @options.baseURL + '/' + url
+
+  root: ->
+    _.result(@parent,'root') or @
+
+  identifier: ->
+    _.result(@parent,'identifier') or ''
 
   delegateChild: ( selector, view ) ->
     selectors = {}

@@ -27,7 +27,7 @@ class IuguUI.Paginator extends IuguUI.Base
   gotoPage: (e) ->
     e.preventDefault()
     page = $(e.target).text()
-    @collection.goTo(page)
+    @collection.goTo(page) unless page == '...'
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
     if numberOfButtons > totalPages
