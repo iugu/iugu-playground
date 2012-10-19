@@ -9,9 +9,12 @@ class IuguUI.Dataset extends IuguUI.Base
     _.bindAll @, 'renderItems', 'addRecord'
     @collection.on('all', @render)
 
+    debug 'INITIALIZE'
+
     @
 
   addRecord: (item) ->
+    debug @options
     @els.push (
       new IuguUI.DatasetRecord
         model: item

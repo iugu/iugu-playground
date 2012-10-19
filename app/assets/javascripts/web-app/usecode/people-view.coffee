@@ -11,9 +11,9 @@ class PeopleView extends IuguUI.Base
       enableAdditionalButtons: false
       baseURL: @options.baseURL
 
-    @dataset = new IuguUI.Dataset
-      collection: @collection
-      baseURL: @options.baseURL
+    # @dataset = new IuguUI.Dataset
+    #  collection: @collection
+    #  baseURL: @options.baseURL
 
     @table = new IuguUI.Table
       collection: @collection

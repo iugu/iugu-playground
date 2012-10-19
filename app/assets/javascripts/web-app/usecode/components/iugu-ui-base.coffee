@@ -6,6 +6,7 @@ class IuguUI.Base extends Backbone.View
   initialize: ->
     _.bindAll @, 'render'
     @options = _.extend {}, @defaults, @options
+    @layout = @options.layout if @options.layout
 
     @
 
