@@ -31,9 +31,7 @@ class IuguUI.Navigator extends IuguUI.Base
     @collection.on('all', @setFocus, this)
 
   context: ->
-    return {
-      collection: @collection.info()
-    }
+    collection: @collection.info()
 
   setFocus: ->
     @$('input.page').focus() if @lastChanged

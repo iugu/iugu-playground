@@ -3,13 +3,11 @@ class IuguUI.Dataset extends IuguUI.Base
 
   defaults:
     itemLayout: "components/iugu-ui-dataset-record"
-    fields: ""
 
   initialize: ->
     super
     _.bindAll @, 'renderItems', 'addRecord'
     @collection.on('all', @render)
-    @collection.on('all', @renderItems)
 
     @
 
@@ -20,21 +18,23 @@ class IuguUI.Dataset extends IuguUI.Base
         baseURL: @options.baseURL
         layout: @options.itemLayout
         fields: @options.fields
-    )
+    ).render().el
 
   context: ->
-    return {
-      dataset: @collection
-      options: @options
-    }
+    dataset: @collection
+    options: @options
+
+  render: ->
+    super
+    @renderItems()
+
+    @
 
   renderItems: ->
     @els = []
     @collection.each @addRecord
 
-    @delegateChild (
-      '.records'  : @els[0]
-    )
+    @$('.records').append @els
 
     @
 

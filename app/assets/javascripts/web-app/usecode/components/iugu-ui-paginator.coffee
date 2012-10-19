@@ -20,11 +20,9 @@ class IuguUI.Paginator extends IuguUI.Base
     @collection.on('all', @render, this)
 
   context: ->
-    return {
-      collection: @collection.info()
-      pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.info().firstPage, @collection.info().totalPages, @collection.info().currentPage)
-      enableAdditionalButtons: @options.enableAdditionalButtons
-    }
+    collection: @collection.info()
+    pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.info().firstPage, @collection.info().totalPages, @collection.info().currentPage)
+    enableAdditionalButtons: @options.enableAdditionalButtons
 
   gotoPage: (e) ->
     e.preventDefault()

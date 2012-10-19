@@ -14,6 +14,10 @@ class PeopleView extends IuguUI.Base
     @dataset = new IuguUI.Dataset
       collection: @collection
       baseURL: @options.baseURL
+
+    @table = new IuguUI.Table
+      collection: @collection
+      baseURL: @options.baseURL
       fields:
         id: "#"
         name: "Name"
@@ -28,7 +32,7 @@ class PeopleView extends IuguUI.Base
 
     @delegateChild(
       '.collection-pagination'            : @paginator
-      '.collection-dataset'               : @dataset
+      '.collection-dataset'               : @table
       '.collection-navigation'            : @navigator
     )
 

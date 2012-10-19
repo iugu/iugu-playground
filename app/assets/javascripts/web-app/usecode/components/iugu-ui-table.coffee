@@ -1,16 +1,7 @@
 class IuguUI.Table extends IuguUI.Dataset
+  layout: "components/iugu-ui-table"
+
   defaults:
-    presenterName: "iugu-ui-table"
-    itemPresenterName: "iugu-ui-table-row"
-
-    initialize: ->
-      super
-
-      @
-
-    render: ->
-      super
-
-      @
+    itemLayout: "components/iugu-ui-table-row"
 
 @IuguUI.Table = IuguUI.Table

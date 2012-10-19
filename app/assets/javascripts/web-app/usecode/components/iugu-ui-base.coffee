@@ -5,10 +5,14 @@ class IuguUI.Base extends Backbone.View
 
   initialize: ->
     _.bindAll @, 'render'
-    @options = _.extend @defaults, @options
+    @options = _.extend {}, @defaults, @options
+
+    @
 
   render: ->
     $(@el).html @getLayout() @context()
+
+    @
 
   getLayout: ->
     JST[ "web-app/presenters/" + @layout ]
