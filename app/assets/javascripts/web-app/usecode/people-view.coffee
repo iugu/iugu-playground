@@ -1,10 +1,30 @@
-class PeopleView extends Backbone.View
-  el: "#app-content"
+class PeopleView extends IuguBaseComponent
+  el: '#app-content'
+  layout: 'people-view'
+
   initialize: ->
     _.bindAll @, 'render'
+    super
+
+    # Os initializers agora ficam aqui
+    @paginator = new IuguPaginatorComponent
+      collection: @collection
+      enableAdditionalButtons: false
+      baseURL: @options.baseURL
 
   render: ->
-    @$el.html JST["web-app/presenters/people-view"]
+    super
+
+    # Este novo método permite renderizar uma sub view que nem fazia parte disto, ex: @app.HeaderButtons
+    @delegateChild(
+      '.collection-pagination'            : @paginator
+    )
+
+    @
+    
+###
+  render: ->
+    @$el.html @template
     
     @paginator = new IuguPaginatorComponent(
       el: @$('.collection-pagination')
@@ -19,18 +39,6 @@ class PeopleView extends Backbone.View
       baseURL: "people"
     )
 
-    ###
-    @table = new IuguTableComponent(
-      el: @$('.collection-rows')
-      collection: @collection
-      baseURL: "people"
-      fields:
-        id: "#"
-        name: "Name"
-        age: "Age"
-    )
-    ###
-    
     @dataset = new IuguDatasetComponent(
       el: @$('.collection-rows')
       collection: @collection
@@ -38,6 +46,7 @@ class PeopleView extends Backbone.View
     )
 
     @
+###
 
 @PeopleView = PeopleView
 
@@ -55,7 +64,7 @@ class PeopleRouter extends Backbone.Router
 
   initializeView: ->
     unless @view
-      @view = new PeopleView( { collection: app.people } )
+      @view = new PeopleView( { collection: app.people, baseURL: 'people' } )
 
   index: (page = 1) ->
     app.people.goTo( page )
