@@ -3,7 +3,7 @@ class PeopleView extends IuguUI.Base
   layout: 'people-view'
 
   initialize: ->
-    _.bindAll @, 'render'
+    _.bindAll @, 'render', 'editRecord'
     super
 
     @paginator = new IuguUI.Paginator
@@ -34,6 +34,11 @@ class PeopleView extends IuguUI.Base
       baseURL: @options.baseURL
       parent: @
       identifier: 'people-navigator'
+
+    @on( 'people-table:record:click', @editRecord )
+
+  editRecord: ( context, model ) ->
+    alert( 'Editing Record: ' + model.get('id') )
 
   render: ->
     super
