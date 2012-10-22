@@ -10,6 +10,6 @@
 }
 </style>
 <div style="margin-top:10px">
-  <a href="#" onclick="Backbone.history.navigate('people',{trigger:true});return false">Voltar</a>
   <h2>Editing Record</h2>
+  <a href="#" onclick="Backbone.history.navigate('people',{trigger:true});return false">Voltar</a>
 </div>

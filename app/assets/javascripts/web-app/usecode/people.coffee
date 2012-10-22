@@ -101,23 +101,25 @@ class PeopleRouter extends Backbone.Router
   redirectError: () ->
     Backbone.history.navigate @baseURL, { trigger: true }
 
-  showEditPage: () ->
-    debug 'show edit page'
-    @editView = new PeopleEdit( { model: @model } )
+  showEditPage: ( model ) ->
+    @editView = new PeopleEdit( { model: model } )
     @editView.render()
   
   edit: (id = null) ->
     @initializeView()
 
-    @model = null
-    @model = app.people.get( id )
-    if @model
-      @showEditPage()
+    model = null
+    model = app.people.get( id )
+
+    if model
+      @showEditPage( model )
     else
-      @model = new app.Person( { id: id } )
-      @model.fetch( {
+      model = new app.Person( { id: id } )
+      model.fetch( {
         error: @redirectError
-        success: @showEditPage
+        success: ( () ->
+          @showEditPage model
+        ).bind(@)
       })
 
     # @editView = new PeopleEdit( { model: model } )
