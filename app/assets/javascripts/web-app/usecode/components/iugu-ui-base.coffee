@@ -4,7 +4,8 @@ class IuguUI.Base extends Backbone.View
     baseURL: ""
 
   initialize: ->
-    _.bindAll @, 'render', 'root'
+    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent'
+
     @options = _.extend {}, @defaults, @options
 
     @layout = @options.layout if @options.layout
@@ -44,5 +45,22 @@ class IuguUI.Base extends Backbone.View
     _.each( selectors, ( view, selector ) ->
       view.setElement(@$(selector)).render()
     , this )
+
+  mapDOMEvent: (type) ->
+    switch type
+      when 'click' then return 'click'
+      when 'mouseover' then return 'mouseover'
+      when 'mouseout' then return 'mouseout'
+      else return type
+
+  handleEvent: (e) ->
+    e.preventDefault()
+    triggerType = @mapDOMEvent e.type
+    @root().trigger( @identifier() + 'record:' + triggerType, @ )
+
+  trigger: (events) ->
+    if app.debug_events
+      debug 'Triggered Event: ' + arguments[0]
+    super
 
 @IuguUI.Base = IuguUI.Base

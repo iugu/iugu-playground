@@ -38,11 +38,11 @@ class PeopleView extends IuguUI.Base
     @on( 'people-table:record:click', @editRecord )
     @on( 'people-table:record:hover', @infoRecord )
 
-  editRecord: ( context, model ) ->
-    debug( 'Editing Record: ' + model.get('id') )
+  editRecord: ( context ) ->
+    debug( 'Editing Record: ' + context.model.get('id') )
 
-  infoRecord: ( context, model ) ->
-    debug( 'Info Record: ' + model.get('id') )
+  infoRecord: ( context ) ->
+    debug( 'Info Record: ' + context.model.get('id') )
 
   render: ->
     super
