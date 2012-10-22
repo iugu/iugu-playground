@@ -4,7 +4,7 @@ class IuguUI.Base extends Backbone.View
     baseURL: ""
 
   initialize: ->
-    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent'
+    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent', 'unload'
 
     @options = _.extend {}, @defaults, @options
 
@@ -62,5 +62,9 @@ class IuguUI.Base extends Backbone.View
     if app.debug_events
       debug 'Triggered Event: ' + arguments[0]
     super
+
+  unload: () ->
+    debug 'Unloading View'
+    # TODO: Add Memory Clean Routines
 
 @IuguUI.Base = IuguUI.Base

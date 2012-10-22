@@ -3,7 +3,7 @@ class PeopleView extends IuguUI.Base
   layout: 'people-view'
 
   initialize: ->
-    _.bindAll @, 'render', 'editRecord'
+    _.bindAll @, 'render', 'openRecord'
     super
 
     @paginator = new IuguUI.Paginator
@@ -35,15 +35,20 @@ class PeopleView extends IuguUI.Base
       parent: @
       identifier: 'people-navigator'
 
-    @on( 'people-table:record:click', @editRecord )
-    @on( 'people-table:record:hover', @infoRecord )
+    @on( 'people-table:record:click', @openRecord )
+    @on( 'people-table:record:mouseenter', @infoINRecord )
+    @on( 'people-table:record:mouseleave', @infoOUTRecord )
 
-  editRecord: ( context ) ->
+  openRecord: ( context ) ->
     editURL = @options.baseURL + '/edit/' + context.model.get('id')
     Backbone.history.navigate editURL, { trigger: true }
 
-  infoRecord: ( context ) ->
-    debug( 'Info Record: ' + context.model.get('id') )
+  infoINRecord: ( context ) ->
+    context.$el.css('cursor','pointer')
+    context.$el.css('background','#EFEFEF')
+
+  infoOUTRecord: ( context ) ->
+    context.$el.css('background','#FFFFFF')
 
   render: ->
     super
@@ -58,8 +63,21 @@ class PeopleView extends IuguUI.Base
     
 @PeopleView = PeopleView
 
-class PeopleRouter extends Backbone.Router
+class PeopleEdit extends IuguUI.Base
+  el: '#app-content'
+  layout: 'people-edit'
+
   initialize: ->
+    _.bindAll @, 'render'
+    super
+
+@PeopleEdit = PeopleEdit
+
+class PeopleRouter extends Backbone.Router
+  baseURL: 'people'
+
+  initialize: ->
+    _.bindAll @, 'redirectError'
     app.peopleRouter = @
     app.people = new app.People
     app.people.paginator_ui.perPage = 10
@@ -73,18 +91,36 @@ class PeopleRouter extends Backbone.Router
 
   initializeView: ->
     unless @view
-      @view = new PeopleView( { collection: app.people, baseURL: 'people' } )
-
+      @view = new PeopleView( { collection: app.people, baseURL: @baseURL } )
   index: (page = 1) ->
     app.people.goTo( page )
 
     @initializeView()
     @view.render()
 
+  redirectError: () ->
+    Backbone.history.navigate @baseURL, { trigger: true }
+
+  showEditPage: () ->
+    debug 'show edit page'
+    @editView = new PeopleEdit( { model: @model } )
+    @editView.render()
+  
   edit: (id = null) ->
     @initializeView()
 
-    debug 'OK EDIT: ' + id
+    @model = null
+    @model = app.people.get( id )
+    if @model
+      @showEditPage()
+    else
+      @model = new app.Person( { id: id } )
+      @model.fetch( {
+        error: @redirectError
+        success: @showEditPage
+      })
+
+    # @editView = new PeopleEdit( { model: model } )
 
 $ ->
   app.registerRouter( PeopleRouter )

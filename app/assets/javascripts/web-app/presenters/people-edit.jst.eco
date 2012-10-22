@@ -1,0 +1,15 @@
+<style type="text/css">
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+</style>
+<div style="margin-top:10px">
+  <a href="#" onclick="Backbone.history.navigate('people',{trigger:true});return false">Voltar</a>
+  <h2>Editing Record</h2>
+</div>
