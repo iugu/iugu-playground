@@ -6,6 +6,7 @@ class IuguUI.DatasetRecord extends IuguUI.Base
 
   events:
     'click' : 'onClick'
+    'mouseenter' : 'onHover'
 
   context: ->
     item: @model
@@ -14,5 +15,9 @@ class IuguUI.DatasetRecord extends IuguUI.Base
   onClick: (e) ->
     e.preventDefault()
     @root().trigger( @identifier() + 'record:click', @, @model )
+
+  onHover: (e) ->
+    e.preventDefault()
+    @root().trigger( @identifier() + 'record:hover', @, @model )
 
 @IuguUI.DatasetRecord = IuguUI.DatasetRecord

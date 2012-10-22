@@ -36,9 +36,13 @@ class PeopleView extends IuguUI.Base
       identifier: 'people-navigator'
 
     @on( 'people-table:record:click', @editRecord )
+    @on( 'people-table:record:hover', @infoRecord )
 
   editRecord: ( context, model ) ->
-    alert( 'Editing Record: ' + model.get('id') )
+    debug( 'Editing Record: ' + model.get('id') )
+
+  infoRecord: ( context, model ) ->
+    debug( 'Info Record: ' + model.get('id') )
 
   render: ->
     super
