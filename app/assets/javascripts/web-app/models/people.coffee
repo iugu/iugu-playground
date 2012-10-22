@@ -1,7 +1,15 @@
 class window.app.Person extends window.app.BaseResource
   urlRoot: '/api/v1/people'
+
   virtual_attributes: ['account_id', 'id', 'created_at', 'updated_at']
+
   collection: window.app.People
+
+  validation:
+    name:
+      required: true
+    age:
+      range: [1, 150]
 
 window.app.People = Backbone.Paginator.requestPager.extend
   model: window.app.Person

@@ -1,4 +1,4 @@
-class PeopleView extends IuguUI.Base
+class PeopleView extends IuguUI.View
   el: '#app-content'
   layout: 'people-view'
 
@@ -63,13 +63,20 @@ class PeopleView extends IuguUI.Base
     
 @PeopleView = PeopleView
 
-class PeopleEdit extends IuguUI.Base
+class PeopleEdit extends IuguUI.View
   el: '#app-content'
   layout: 'people-edit'
+
+  events:
+    'click .save': 'save'
 
   initialize: ->
     _.bindAll @, 'render'
     super
+
+  save: (evt) ->
+    evt.preventDefault()
+    @model.save() if @model.isValid()
 
 @PeopleEdit = PeopleEdit
 
