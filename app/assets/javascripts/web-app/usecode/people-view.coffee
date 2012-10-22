@@ -39,7 +39,8 @@ class PeopleView extends IuguUI.Base
     @on( 'people-table:record:hover', @infoRecord )
 
   editRecord: ( context ) ->
-    debug( 'Editing Record: ' + context.model.get('id') )
+    editURL = @options.baseURL + '/edit/' + context.model.get('id')
+    Backbone.history.navigate editURL, { trigger: true }
 
   infoRecord: ( context ) ->
     debug( 'Info Record: ' + context.model.get('id') )
@@ -67,6 +68,7 @@ class PeopleRouter extends Backbone.Router
   routes:
     "people"      : "index"
     "people/"     : "index"
+    "people/edit/:id" : "edit"
     "people/:page" : "index"
 
   initializeView: ->
@@ -78,6 +80,11 @@ class PeopleRouter extends Backbone.Router
 
     @initializeView()
     @view.render()
+
+  edit: (id = null) ->
+    @initializeView()
+
+    debug 'OK EDIT: ' + id
 
 $ ->
   app.registerRouter( PeopleRouter )
