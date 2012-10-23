@@ -71,15 +71,18 @@ class PeopleEdit extends IuguUI.View
     'click .save': 'save'
 
   initialize: ->
-    _.bindAll @, 'render'
+    _.bindAll @, 'render', 'save'
     super
 
   save: (evt) ->
     evt.preventDefault()
-    @model.save {},
-      success: () ->
-        debug 'success'
+
+    that = @
+
+    @model.save {}
+      success: ->
         Backbone.history.navigate 'people', { trigger: true }
+        that.unload()
 
 @PeopleEdit = PeopleEdit
 

@@ -64,7 +64,7 @@ class IuguUI.Base extends Backbone.View
     super
 
   unload: () ->
-    debug 'Unloading View'
-    # TODO: Add Memory Clean Routines
+    @undelegateEvents()
+    @off()
 
 @IuguUI.Base = IuguUI.Base
