@@ -7,7 +7,7 @@ class Person < ActiveRecord::Base
 
   attr_accessible :name, :age, :notes
   
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  #include Tire::Model::Search
+  #include Tire::Model::Callbacks
 
 end

@@ -13,7 +13,7 @@ class IuguUI.View extends IuguUI.Base
         invalid: (view, attr, error, selector) ->
           view.invalid view, attr, error, selector
 
-      @model.on 'error', @addErrors
+      @model.on 'error', @addErrors, @
 
   valid: (view, attr, selector) ->
     control = view.$ '[' + selector + '=\"' + attr + '\"]'
@@ -41,14 +41,25 @@ class IuguUI.View extends IuguUI.Base
       group.prepend '<div class="alert alert-error"><ul class="error-list"></ul></div>'
       list = group.find ".error-list"
 
-      list.find(".error-" + attr).remove()
+    list.find(".error-" + attr).remove()
+
+    if _.isArray(error)
+      _.each(error, (err) ->
+        list.append '<li class="error error-' + attr + '">' + attr + ' ' + err + '</li>'
+      )
+    else
       list.append '<li class="error error-' + attr + '">' + error + '</li>'
+
 
   addErrors: (model, errors) ->
     invalid = @invalid
+    view = @
 
-    _.each JSON.parse(errors.responseText).errors, (val, key) ->
-      invalid @, key, key + " " + val, "name"
+    errors_json = JSON.parse errors.responseText
+
+    _.each(errors_json.errors, (val, key) ->
+      invalid view, key, val, "name"
+    )
 
   render: ->
     super

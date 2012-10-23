@@ -76,7 +76,7 @@ class PeopleEdit extends IuguUI.View
 
   save: (evt) ->
     evt.preventDefault()
-    @model.save() if @model.isValid()
+    @model.save() #if @model.isValid()
 
 @PeopleEdit = PeopleEdit
 
