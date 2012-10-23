@@ -76,7 +76,10 @@ class PeopleEdit extends IuguUI.View
 
   save: (evt) ->
     evt.preventDefault()
-    @model.save() #if @model.isValid()
+    @model.save {},
+      success: () ->
+        debug 'success'
+        Backbone.history.navigate 'people', { trigger: true }
 
 @PeopleEdit = PeopleEdit
 
