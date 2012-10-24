@@ -81,7 +81,7 @@ class PeopleEdit extends IuguUI.View
 
   goBack: () ->
     @close()
-    Backbone.history.navigate 'people', { trigger: true }
+    window.history.back()
 
   save: (evt) ->
     evt.preventDefault()
