@@ -9,10 +9,6 @@ class IuguUI.Alert extends IuguUI.Base
   events:
     'click a.alertButton': 'handleEvent'
 
-  initialize: ->
-    _.bindAll @, 'handleEvent'
-    super
-
   context: ->
     headerText: @options.headerText
     bodyText: @options.bodyText

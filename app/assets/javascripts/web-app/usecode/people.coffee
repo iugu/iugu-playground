@@ -43,9 +43,12 @@ class PeopleView extends IuguUI.View
     @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
     @on( 'undo-alert:record:click', @undo )
 
-    @collection.on "undo:success", @refresh, @
-    @collection.on "destroy", @enableUndo, @
-    @collection.on "sync", @enableUndo, @
+    @collection.on "undo:success", @refresh
+    @collection.on "destroy", @enableUndo
+    @collection.on "sync", @enableUndo
+
+  refresh: () ->
+    debug 'UNDO OK - O REFRESH soh poderia acontecer em caso de destroy ou create'
 
   enableUndo: (model) ->
 
@@ -158,8 +161,6 @@ class PeopleRouter extends Backbone.Router
   initialize: ->
     _.bindAll @, 'redirectError'
     app.peopleRouter = @
-    app.people = new app.People
-    app.people.paginator_ui.perPage = 10
     @
 
   routes:
@@ -173,7 +174,8 @@ class PeopleRouter extends Backbone.Router
     unless @view
       @view = new PeopleView( { collection: app.people, baseURL: @baseURL } )
   index: (page = 1) ->
-    app.people.goTo( page )
+    if page != app.people.currentPage
+      app.people.goTo( page )
 
     @initializeView()
     @view.render()
@@ -207,6 +209,7 @@ class PeopleRouter extends Backbone.Router
       model.fetch( {
         error: @redirectError
         success: ( () ->
+          app.people.addModel( model )
           @showEditPage model
         ).bind(@)
       })
@@ -214,4 +217,7 @@ class PeopleRouter extends Backbone.Router
     # @editView = new PeopleEdit( { model: model } )
 
 $ ->
+  app.people = new app.People
+  app.people.paginator_ui.perPage = 10
+
   app.registerRouter( PeopleRouter )
