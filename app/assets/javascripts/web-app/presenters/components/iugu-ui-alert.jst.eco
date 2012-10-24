@@ -1,4 +1,4 @@
 <a class="close" data-dismiss="alert" href="#">x</a>
 <h4 class="alert-heading"><%= @headerText %></h4>
 <p><%= @bodyText %></p><br/>
-<a class="btn alertButton" data-dismiss="alert" href="#"><% @buttonText %></a>
+<a class="btn alertButton" data-dismiss="alert" href="#"><%= @buttonText %></a>

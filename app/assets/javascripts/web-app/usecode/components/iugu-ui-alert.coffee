@@ -12,7 +12,7 @@ class IuguUI.Alert extends IuguUI.Base
     'click a.alertButton': 'handleEvent'
 
   initialize: ->
-    _bindAll @, 'handleEvent'
+    _.bindAll @, 'handleEvent'
     super
 
   context: ->

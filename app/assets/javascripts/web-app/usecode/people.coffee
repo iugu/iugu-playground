@@ -3,7 +3,7 @@ class PeopleView extends IuguUI.View
   layout: 'people-view'
 
   initialize: ->
-    _.bindAll @, 'render', 'openRecord'
+    _.bindAll @, 'render', 'openRecord', 'showUndo'
     super
 
     @paginator = new IuguUI.Paginator
@@ -38,6 +38,21 @@ class PeopleView extends IuguUI.View
     @on( 'people-table:record:click', @openRecord )
     @on( 'people-table:record:mouseenter', @infoINRecord )
     @on( 'people-table:record:mouseleave', @infoOUTRecord )
+    @on( 'undo-alert:record:click', @undo )
+    @collection.on "undo:success", @refresh
+    @collection.on "destroy", @showUndo
+
+  showUndo: (model) ->
+    @undoAlert = new IuguUI.Alert
+      parent: @
+      identifier: 'undo-alert'
+      headerText: 'Are you sure about your previous action?'
+      bodyText: 'If your not sure about your previous record removal, please UNDO'
+      buttonText: 'UNDO'
+    @$('.alert-placeholder').append(@undoAlert.render().el)
+
+  undo: (context) ->
+    debug context
 
   openRecord: ( context ) ->
     editURL = @options.baseURL + '/edit/' + context.model.get('id')

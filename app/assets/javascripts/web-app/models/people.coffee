@@ -14,11 +14,21 @@ class window.app.Person extends window.app.BaseResource
   undo: ->
     @configureAjax()
 
-    uri = @urlRoot + '/' + @id + '/undo'
-    uri = @appendLocaleInfo uri
+    uri = @appendLocaleInfo @urlRoot + '/' + @id + '/undo'
 
-    response = Backbone.ajax(uri, {type: "POST"})
-    @set($.parseJSON(response.responseText))
+    @trigger "undo"
+
+    model = @
+
+    Backbone.ajax(uri,
+      type: "POST"
+      success: (data) ->
+        model.set(data)
+        model.trigger "undo:success", model
+      error: (data) ->
+        model.trigger "undo:error", data, model
+    )
+
 
 window.app.People = Backbone.Paginator.requestPager.extend
   model: window.app.Person

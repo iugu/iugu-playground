@@ -10,6 +10,8 @@
 }
 </style>
 <div style="margin-top:10px">
+  <div class="alert-placeholder">
+  </div>
   <div class="collection-dataset" style="height:386px;overflow-y:auto;margin-bottom:20px">
   </div>
 
