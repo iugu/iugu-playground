@@ -23,4 +23,17 @@ class Api::V1::PersonController < Api::V1::BaseApiController
     respond_with @current_account.people.find(params[:id]).destroy
   end
 
+  def undo
+    @version = Version.with_item_keys("person", params[:id]).first
+    @person = @current_account.people.find_by_id(params[:id])
+ 
+    if @version.reify.try(:account_id) == @current_account.id || @person
+      if @version.revert
+        return respond_with @current_account.people.find_by_id(params[:id]) || @person, location: nil
+      end
+    end 
+
+    render 'api/v1/404', status: :not_found
+  end
+
 end

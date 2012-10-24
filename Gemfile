@@ -27,6 +27,9 @@ gem "rabl"
 gem "acts_as_flags"
 gem "acts_as_status"
 
+gem "paper_trail"
+gem 'revertible_paper_trail'
+
 gem "faker"
 gem "populator"
 

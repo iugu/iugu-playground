@@ -70,7 +70,6 @@ class PeopleEdit extends IuguUI.View
   events:
     'click .save': 'save'
     'click .remove': 'remove'
-    'click .removalConfirmation': 'removalConfirmation'
 
   initialize: ->
     _.bindAll @, 'render', 'save', 'remove'
@@ -95,9 +94,6 @@ class PeopleEdit extends IuguUI.View
       success: (model, response) ->
         that.close()
         Backbone.history.navigate 'people', { trigger: true }
-
-  removalConfirmation: (evt) ->
-    evt.preventDefault()
 
 @PeopleEdit = PeopleEdit
 

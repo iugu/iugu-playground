@@ -11,6 +11,15 @@ class window.app.Person extends window.app.BaseResource
     age:
       range: [1, 150]
 
+  undo: ->
+    @configureAjax()
+
+    uri = @urlRoot + '/' + @id + '/undo'
+    uri = @appendLocaleInfo uri
+
+    response = Backbone.ajax(uri, {type: "POST"})
+    @set($.parseJSON(response.responseText))
+
 window.app.People = Backbone.Paginator.requestPager.extend
   model: window.app.Person
 
