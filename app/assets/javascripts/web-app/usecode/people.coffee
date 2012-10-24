@@ -2,6 +2,9 @@ class PeopleView extends IuguUI.View
   el: '#app-content'
   layout: 'people-view'
 
+  events:
+    'click .new-person' : 'newPerson'
+
   initialize: ->
     _.bindAll @, 'render', 'openRecord', 'showUndo'
     super
@@ -41,15 +44,19 @@ class PeopleView extends IuguUI.View
     @on( 'undo-alert:record:click', @undo )
     @collection.on "undo:success", @refresh
     @collection.on "destroy", @showUndo
+    @collection.on "sync", @showUndo
 
   showUndo: (model) ->
     @undoAlert = new IuguUI.Alert
       parent: @
       identifier: 'undo-alert'
       headerText: 'Are you sure about your previous action?'
-      bodyText: 'If your not sure about your previous record removal, please UNDO'
+      bodyText: 'If you are not sure about your previous action, you could UNDO it'
       buttonText: 'UNDO'
-    @$('.alert-placeholder').append(@undoAlert.render().el)
+
+    debug @$("*")
+
+    @$('.alert-placeholder').append @undoAlert.render().el
 
   undo: (context) ->
     debug context
@@ -57,6 +64,11 @@ class PeopleView extends IuguUI.View
   openRecord: ( context ) ->
     editURL = @options.baseURL + '/edit/' + context.model.get('id')
     Backbone.history.navigate editURL, { trigger: true }
+
+  newPerson: (evt) ->
+    evt.preventDefault()
+    newURL = @options.baseURL + '/new'
+    Backbone.history.navigate newURL, { trigger: true }
 
   infoINRecord: ( context ) ->
     context.$el.css('cursor','pointer')
@@ -77,6 +89,29 @@ class PeopleView extends IuguUI.View
     @
     
 @PeopleView = PeopleView
+
+class PeopleNew extends IuguUI.View
+  el: '#app-content'
+  layout: 'people-new'
+
+  events:
+    'click .save': 'save'
+
+  initialize: ->
+    _.bindAll @, 'render', 'save', 'goBack'
+    super
+
+    @model.on "sync", @goBack, @
+
+  goBack: () ->
+    @close()
+    window.history.back()
+
+  save: (evt) ->
+    evt.preventDefault()
+    @model.save wait: true
+
+@PeopleNew = PeopleNew
 
 class PeopleEdit extends IuguUI.View
   el: '#app-content'
@@ -118,10 +153,11 @@ class PeopleRouter extends Backbone.Router
     @
 
   routes:
-    "people"      : "index"
-    "people/"     : "index"
+    "people"          : "index"
+    "people/"         : "index"
     "people/edit/:id" : "edit"
-    "people/:page" : "index"
+    "people/new"      : "new"
+    "people/:page"    : "index"
 
   initializeView: ->
     unless @view
@@ -138,7 +174,16 @@ class PeopleRouter extends Backbone.Router
   showEditPage: ( model ) ->
     @editView = new PeopleEdit( { model: model } )
     @editView.render()
+
+  showNewPage: ( model ) ->
+    @newView = new PeopleNew( { model: model } )
+    @newView.render()
   
+  new: ->
+    model = new app.Person()
+
+    @showNewPage model
+
   edit: (id = null) ->
     @initializeView()
 

@@ -12,6 +12,11 @@
 <div style="margin-top:10px">
   <div class="alert-placeholder">
   </div>
+  <div class="btn-toolbar">
+    <div class="btn-group">
+      <a class="btn new-person" href="#"><i class="icon-plus-sign"></i></a>
+    </div>
+  </div>    
   <div class="collection-dataset" style="height:386px;overflow-y:auto;margin-bottom:20px">
   </div>
 
