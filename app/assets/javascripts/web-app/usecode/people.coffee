@@ -6,7 +6,7 @@ class PeopleView extends IuguUI.View
     'click .new-person' : 'newPerson'
 
   initialize: ->
-    _.bindAll @, 'render', 'openRecord', 'showUndo'
+    _.bindAll @, 'render', 'openRecord', 'enableUndo'
     super
 
     @paginator = new IuguUI.Paginator
@@ -38,25 +38,27 @@ class PeopleView extends IuguUI.View
       parent: @
       identifier: 'people-navigator'
 
-    @on( 'people-table:record:click', @openRecord )
-    @on( 'people-table:record:mouseenter', @infoINRecord )
-    @on( 'people-table:record:mouseleave', @infoOUTRecord )
+    @on( 'people-table:record:click', @openRecord, @ )
+    @on( 'people-table:record:mouseenter', @infoINRecord, @ )
+    @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
     @on( 'undo-alert:record:click', @undo )
-    @collection.on "undo:success", @refresh
-    @collection.on "destroy", @showUndo
-    @collection.on "sync", @showUndo
 
-  showUndo: (model) ->
+    @collection.on "undo:success", @refresh, @
+    @collection.on "destroy", @enableUndo, @
+    @collection.on "sync", @enableUndo, @
+
+  enableUndo: (model) ->
+
+    if @undoAlert
+      @undoAlert.close()
+
     @undoAlert = new IuguUI.Alert
       parent: @
       identifier: 'undo-alert'
-      headerText: 'Are you sure about your previous action?'
-      bodyText: 'If you are not sure about your previous action, you could UNDO it'
+      headerText: 'Done!'
+      bodyText: 'Want to revert it?'
       buttonText: 'UNDO'
 
-    debug @$("*")
-
-    @$('.alert-placeholder').append @undoAlert.render().el
 
   undo: (context) ->
     debug context
@@ -80,10 +82,18 @@ class PeopleView extends IuguUI.View
   render: ->
     super
 
+    optionalChilds = {}
+    if @undoAlert
+      optionalChilds['.alert-placeholder'] = @undoAlert
+
     @delegateChild(
-      '.collection-pagination'            : @paginator
-      '.collection-dataset'               : @table
-      '.collection-navigation'            : @navigator
+      _.extend(
+        '.collection-pagination'            : @paginator
+        '.collection-dataset'               : @table
+        '.collection-navigation'            : @navigator
+        ,
+        optionalChilds
+      )
     )
 
     @
