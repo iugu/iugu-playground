@@ -56,12 +56,12 @@ class PeopleView extends IuguUI.View
       parent: @
       identifier: 'undo-alert'
       headerText: 'Done!'
-      bodyText: 'Want to revert it?'
+      bodyText: 'Do you want to revert it?'
       buttonText: 'UNDO'
-
+      model: model
 
   undo: (context) ->
-    debug context
+    context.model.undo()
 
   openRecord: ( context ) ->
     editURL = @options.baseURL + '/edit/' + context.model.get('id')

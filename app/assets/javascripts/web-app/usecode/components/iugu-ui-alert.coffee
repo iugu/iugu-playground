@@ -1,6 +1,4 @@
 class IuguUI.Alert extends IuguUI.Base
-
-  className: "alert alert-block alert-success fade in"
   layout: "components/iugu-ui-alert"
 
   defaults:
