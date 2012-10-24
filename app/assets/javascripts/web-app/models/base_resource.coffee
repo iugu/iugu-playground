@@ -2,9 +2,7 @@ class window.app.BaseResource extends Backbone.Model
   virtual_attributes: []
 
   sync: (method, model, options) ->
-    $.ajaxSetup
-      headers:
-        Authorization: $.base64.encode api_token
+    @configureAjax()
     Backbone.sync method, model, options
 
   toJSON: (options) ->
@@ -12,4 +10,12 @@ class window.app.BaseResource extends Backbone.Model
 
   url: ->
     base = super
-    base + (if base.indexOf('?') then '?' else '&') + 'hl=' + encodeURIComponent( i18n.locale )
+    base = @appendLocaleInfo(base)
+
+  configureAjax: ->
+    $.ajaxSetup
+      headers:
+        Authorization: $.base64.encode api_token
+
+  appendLocaleInfo: (uri) ->
+    uri + (if uri.indexOf('?') then '?' else '&') + 'hl=' + encodeURIComponent( i18n.locale )

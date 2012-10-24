@@ -10,6 +10,7 @@ IuguPlayground::Application.routes.draw do
         get 'people/:id' => 'person#show'
         put 'people/:id' => 'person#update'
         delete 'people/:id' => 'person#destroy'
+        post 'people/:id/undo' => 'person#undo'
       end
     end
 

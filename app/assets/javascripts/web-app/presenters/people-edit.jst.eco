@@ -35,14 +35,7 @@
     </div>
   <div class="controls">
   <button class="save btn btn-primary">Save</button>
-  <button class="removalConfirmation btn btn-danger">Remove</button>
+  <button class="remove btn btn-danger">Remove</button>
   </div>
   </form>
-  <div class="removalAlert alert alert-block alert-error fade in">
-    <a class="close" data-dismiss="alert" href="#">x</a>
-    <h4 class="alert-heading">Are you sure?</h4>
-    <p>This will remove the row from the database.</p><br/>
-    <a class="btn btn-danger remove" data-dismiss="alert" href="#">I'm sure!</a>
-    <a class="btn" data-dismiss="alert" href="#">Cancel</a>
-  </div>
 </div>
