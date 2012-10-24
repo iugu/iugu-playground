@@ -4,7 +4,7 @@ class IuguUI.Base extends Backbone.View
     baseURL: ""
 
   initialize: ->
-    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent', 'unload'
+    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent', 'unload', 'close'
 
     @options = _.extend {}, @defaults, @options
 
@@ -64,7 +64,13 @@ class IuguUI.Base extends Backbone.View
     super
 
   unload: () ->
+    debug 'Called IuguUI.Base:unload'
     @undelegateEvents()
     @off()
+
+  close: () ->
+    debug 'Called IuguUI.Base:close'
+    @unload()
+    @remove
 
 @IuguUI.Base = IuguUI.Base

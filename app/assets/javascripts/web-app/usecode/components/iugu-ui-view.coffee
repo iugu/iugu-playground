@@ -1,5 +1,4 @@
 class IuguUI.View extends IuguUI.Base
-
   layout: "components/iugu-ui-view"
 
   initialize: ->
@@ -66,5 +65,14 @@ class IuguUI.View extends IuguUI.Base
     rivets.bind this.$el, {model: @model} if @model
 
     @
+
+  unload: () ->
+    super
+    debug 'Called IuguUI.View:close'
+    if @model
+      Backbone.Validation.unbind @
+      @model.off null, null, @
+    if @collection
+      @collection.off null, null, @
 
 @IuguUI.View = IuguUI.View

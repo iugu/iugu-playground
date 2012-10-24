@@ -83,8 +83,8 @@ class PeopleEdit extends IuguUI.View
 
     @model.save {}
       success: ->
+        that.close()
         Backbone.history.navigate 'people', { trigger: true }
-        that.unload()
 
   remove: (evt) ->
     evt.preventDefault()
@@ -93,8 +93,8 @@ class PeopleEdit extends IuguUI.View
 
     @model.destroy
       success: (model, response) ->
+        that.close()
         Backbone.history.navigate 'people', { trigger: true }
-        that.unload()
 
   removalConfirmation: (evt) ->
     evt.preventDefault()
