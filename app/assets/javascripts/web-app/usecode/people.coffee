@@ -72,28 +72,23 @@ class PeopleEdit extends IuguUI.View
     'click .remove': 'remove'
 
   initialize: ->
-    _.bindAll @, 'render', 'save', 'remove'
+    _.bindAll @, 'render', 'save', 'remove', 'goBack'
     super
+
+    @model.on "sync", @goBack, @
+    @model.on "destroy", @goBack, @
+
+  goBack: () ->
+    @close()
+    window.history.back()
 
   save: (evt) ->
     evt.preventDefault()
-
-    that = @
-
-    @model.save {}
-      success: ->
-        that.close()
-        Backbone.history.navigate 'people', { trigger: true }
+    @model.save wait: true
 
   remove: (evt) ->
     evt.preventDefault()
-
-    that = @
-
-    @model.destroy
-      success: (model, response) ->
-        that.close()
-        Backbone.history.navigate 'people', { trigger: true }
+    @model.destroy wait: true
 
 @PeopleEdit = PeopleEdit
 
