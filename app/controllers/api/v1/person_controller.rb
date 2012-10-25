@@ -3,7 +3,7 @@ class Api::V1::PersonController < Api::V1::BaseApiController
   def index
     limit = [ params[:limit].try(:to_i) || 100, 1000 ].min
     start = params[:start] || 0
-    @people = @current_account.people.limit(limit).offset(start)
+    @people = @current_account.people.order("id DESC").limit(limit).offset(start)
     @totalItems = @current_account.people.count
   end
 
