@@ -19,6 +19,10 @@ class IuguUI.Paginator extends IuguUI.Base
     super
     @collection.on('all', @render, this)
 
+  render: ->
+    return @ unless @collection.info().totalPages
+    super
+
   context: ->
     collection: @collection.info()
     pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.info().firstPage, @collection.info().totalPages, @collection.info().currentPage)
@@ -30,6 +34,8 @@ class IuguUI.Paginator extends IuguUI.Base
     @collection.goTo(page) unless page == '...'
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
+    return unless totalPages
+
     if numberOfButtons > totalPages
       return _.range(1, totalPages + 1)
 

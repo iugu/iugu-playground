@@ -43,12 +43,13 @@ class PeopleView extends IuguUI.View
     @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
     @on( 'undo-alert:record:click', @undo )
 
-    @collection.on "undo:success", @refresh
+    @collection.on "undo:success", @refresh, @
     @collection.on "destroy", @enableUndo
     @collection.on "sync", @enableUndo
 
   refresh: () ->
     debug 'UNDO OK - O REFRESH soh poderia acontecer em caso de destroy ou create'
+    @collection.goTo @collection.currentPage
 
   enableUndo: (model) ->
 
@@ -65,6 +66,7 @@ class PeopleView extends IuguUI.View
 
   undo: (context) ->
     context.model.undo()
+    @collection.add context.model
 
   openRecord: ( context ) ->
     editURL = @options.baseURL + '/edit/' + context.model.get('id')
@@ -184,7 +186,12 @@ class PeopleRouter extends Backbone.Router
     Backbone.history.navigate @baseURL, { trigger: true }
 
   showEditPage: ( model ) ->
-    @editView = new PeopleEdit( { model: model } )
+    if @editView
+      @editView.close()
+
+    model.off "all", null, @
+
+    @editView = new PeopleEdit( { model: model, collection: model.collection } )
     @editView.render()
 
   showNewPage: ( model ) ->
@@ -206,13 +213,11 @@ class PeopleRouter extends Backbone.Router
       @showEditPage( model )
     else
       model = new app.Person( { id: id } )
-      model.fetch( {
-        error: @redirectError
-        success: ( () ->
-          app.people.addModel( model )
-          @showEditPage model
-        ).bind(@)
-      })
+      window.app.people.add model
+
+      model.on "sync", @showEditPage, @
+      model.on "error", @redirectError, @
+      model.fetch()
 
     # @editView = new PeopleEdit( { model: model } )
 
