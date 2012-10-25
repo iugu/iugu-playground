@@ -43,13 +43,15 @@ class PeopleView extends IuguUI.View
     @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
     @on( 'undo-alert:record:click', @undo )
 
-    @collection.on "undo:success", @refresh, @
     @collection.on "destroy", @enableUndo
     @collection.on "sync", @enableUndo
 
-  refresh: () ->
-    debug 'UNDO OK - O REFRESH soh poderia acontecer em caso de destroy ou create'
-    @collection.goTo @collection.currentPage
+  # TODO: Change name to updateCollection
+  refresh: (model) ->
+    model.off "undo:success", @refresh, @
+    # Undo de Create e Destroy deve ser estudado
+    @collection.add model, at: model.lastCollectionIndex
+    @collection.trigger 'change', model
 
   enableUndo: (model) ->
 
@@ -65,8 +67,8 @@ class PeopleView extends IuguUI.View
       model: model
 
   undo: (context) ->
+    context.model.on "undo:success", @refresh, @
     context.model.undo()
-    @collection.add context.model
 
   openRecord: ( context ) ->
     editURL = @options.baseURL + '/edit/' + context.model.get('id')
@@ -153,6 +155,7 @@ class PeopleEdit extends IuguUI.View
 
   remove: (evt) ->
     evt.preventDefault()
+    @model.lastCollectionIndex = @model.collection.indexOf( @model )
     @model.destroy wait: true
 
 @PeopleEdit = PeopleEdit
