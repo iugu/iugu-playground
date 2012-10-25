@@ -203,6 +203,7 @@ class PeopleRouter extends Backbone.Router
   
   new: ->
     model = new app.Person()
+    window.app.people.add model, at: 0
 
     @showNewPage model
 
