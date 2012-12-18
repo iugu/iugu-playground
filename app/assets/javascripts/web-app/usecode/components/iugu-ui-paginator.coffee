@@ -9,29 +9,29 @@ class IuguUI.Paginator extends IuguUI.Base
   events:
     'click a.page': 'gotoPage'
     'click a.next': ->
-      @collection.gotoNext()
+      @handleEvent 'next'
       false
     'click a.previous': ->
-      @collection.gotoPrevious()
+      @handleEvent 'previous'
       false
 
   initialize: ->
     super
-    @collection.on('all', @render, this)
-
-  render: ->
-    return @ unless @collection.info().totalPages
-    super
 
   context: ->
-    collection: @collection.info()
-    pageButtons: @pageButtonsToShow(@options.numberOfPageButtons, @collection.info().firstPage, @collection.info().totalPages, @collection.info().currentPage)
+    currentPage: 1
+    firstPage: 1
+    lastPage: 3
     enableAdditionalButtons: @options.enableAdditionalButtons
+    pageButtons: @pageButtonsToShow(10, 1, 10, 1)
+
+  currentPage: 1
 
   gotoPage: (e) ->
     e.preventDefault()
-    page = $(e.target).text()
-    @collection.goTo(page) unless page == '...'
+    return if $(e.target).text() == '...'
+    @currentPage = $(e.target).text()
+    @handleEvent 'change-page'
 
   pageButtonsToShow: (numberOfButtons, firstPage, totalPages, currentPage) ->
     return unless totalPages

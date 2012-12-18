@@ -4,37 +4,44 @@ class IuguUI.Navigator extends IuguUI.Base
 
   events:
     'click a.next': ->
-      @collection.gotoNext()
+      @handleEvent 'next'
       false
     'click a.previous': ->
-      @collection.gotoPrevious()
+      @handleEvent 'previous'
       false
-    'change input.page': 'changedPage'
+    'change input.page': 'changePage'
 
-  changedPage: (e) ->
-    e.preventDefault()
-    old_page = @collection.currentPage
-    page = $(e.target).val()
+  currentPage: ->
+    @$('input.page')
+
+  changePage: ->
+    old_page = @context().currentPage
+    page = @currentPage().val()
     page = old_page if page == ''
-    if @collection.information.lastPage+1 > page
-      @collection.goTo( page )
+    if @context().lastPage+1 > page
+      @handleEvent 'change-page'
       @lastChanged = true
       true
     else
-      $(e.target).val( old_page )
-      $(e.target).select()
+      @currentPage().val( old_page )
+      @currentPage().select()
       false
 
   initialize: ->
+    _.bindAll @, 'changePage'
     super
-    @collection.on('all', @render, this)
-    @collection.on('all', @setFocus, this)
 
   context: ->
-    collection: @collection.info()
+    currentPage: 1
+    firstPage: 1
+    lastPage: 3
 
   setFocus: ->
-    @$('input.page').focus() if @lastChanged
-    @lastChanged = false
+    context = @
+    if @lastChanged
+      setTimeout () ->
+        context.$('input.page').focus()
+        context.lastChanged = false
+      , 10
 
 @IuguUI.Navigator = IuguUI.Navigator

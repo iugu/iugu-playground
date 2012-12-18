@@ -9,7 +9,7 @@ class Person < ActiveRecord::Base
 
   has_paper_trail
   
-  #include Tire::Model::Search
-  #include Tire::Model::Callbacks
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
 
 end

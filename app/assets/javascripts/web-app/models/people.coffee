@@ -1,7 +1,7 @@
 class window.app.Person extends window.app.BaseResource
   urlRoot: '/api/v1/people'
 
-  virtual_attributes: ['account_id', 'id', 'created_at', 'updated_at']
+  virtual_attributes: ['account_id', 'id', 'created_at', 'updated_at', 'undo_event']
 
   collection: window.app.People
 
@@ -34,7 +34,9 @@ window.app.People = Backbone.Paginator.requestPager.extend
   model: window.app.Person
 
   paginator_core:
-    url: '/api/v1/people?&'
+    #url: '/api/v1/people?&'
+    url: ->
+      '/api/v1/people/s/j*?&'
     dataType: 'json'
 
   paginator_ui:
@@ -57,16 +59,27 @@ window.app.People = Backbone.Paginator.requestPager.extend
     @totalPages = Math.ceil(@totalRecords / @perPage)
     return response.items
 
+  buildChangedPageEventOptions: ->
+    success: ( ( collection, response ) ->
+      @trigger 'changed-page:success'
+    ).bind @
+    error: ( ( collection, response ) ->
+      @trigger 'changed-page:error'
+    ).bind @
+
   gotoFirst: ->
-    @goTo @information.firstPage
+    @goTo @information.firstPage, @buildChangedPageEventOptions()
 
   gotoLast: ->
-    @goTo @information.lastPage
+    @goTo @information.lastPage, @buildChangedPageEventOptions()
+
+  gotoPage: ( page ) ->
+    @goTo page, @buildChangedPageEventOptions()
 
   gotoNext: ->
     if @information.currentPage < @information.lastPage
-      @requestNextPage()
+      @requestNextPage @buildChangedPageEventOptions()
 
   gotoPrevious: ->
     if @information.currentPage > 1
-      @requestPreviousPage()
+      @requestPreviousPage @buildChangedPageEventOptions()

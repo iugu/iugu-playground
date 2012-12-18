@@ -2,13 +2,13 @@ class IuguUI.DatasetRecord extends IuguUI.Base
   layout: "components/iugu-ui-dataset-record"
 
   initialize: ->
-    _.bindAll @, 'handleEvent'
+    _.bindAll @
     super
 
   events:
-    'click' : 'handleEvent'
-    'mouseenter' : 'handleEvent'
-    'mouseleave' : 'handleEvent'
+    'click' : 'handleDOMEvent'
+    'mouseenter' : 'handleDOMEvent'
+    'mouseleave' : 'handleDOMEvent'
 
   context: ->
     item: @model

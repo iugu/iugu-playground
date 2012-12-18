@@ -6,6 +6,7 @@ IuguPlayground::Application.routes.draw do
     namespace :api do
       namespace :v1 do
         get 'people' => 'person#index'
+        get 'people/s/:query' => 'person#search'
         post 'people' => 'person#create'
         get 'people/:id' => 'person#show'
         put 'people/:id' => 'person#update'

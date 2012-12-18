@@ -22,6 +22,7 @@ class IuguUI.Dataset extends IuguUI.Base
         fields: @options.fields
         tagName: @options.itemTagName
         className: @options.itemClassName
+        identifier: @identifier() + "record"
         parent: @
     ).render().el
 

@@ -4,7 +4,7 @@ class IuguUI.Base extends Backbone.View
     baseURL: ""
 
   initialize: ->
-    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent', 'unload', 'close'
+    _.bindAll @, 'render', 'root', 'identifier', 'delegateChild', 'mapDOMEvent', 'handleEvent', 'handleDOMEvent', 'unload', 'close'
 
     @options = _.extend {}, @defaults, @options
 
@@ -12,6 +12,8 @@ class IuguUI.Base extends Backbone.View
     @parent = @options.parent if @options.parent
     
     @identifier = ( -> @options.identifier + ':' ) if @options.identifier
+
+    @handleEvent 'initialize'
 
     @
 
@@ -53,10 +55,13 @@ class IuguUI.Base extends Backbone.View
       when 'mouseout' then return 'mouseout'
       else return type
 
-  handleEvent: (e) ->
+  handleEvent: (triggerType) ->
+    @root().trigger( @identifier() + triggerType, @ )
+
+  handleDOMEvent: (e) ->
     e.preventDefault()
     triggerType = @mapDOMEvent e.type
-    @root().trigger( @identifier() + 'record:' + triggerType, @ )
+    @handleEvent triggerType
 
   trigger: (events) ->
     if app.debug_events

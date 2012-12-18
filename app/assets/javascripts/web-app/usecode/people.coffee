@@ -10,7 +10,6 @@ class PeopleView extends IuguUI.View
     super
 
     @paginator = new IuguUI.Paginator
-      collection: @collection
       enableAdditionalButtons: false
       baseURL: @options.baseURL
       parent: @
@@ -33,30 +32,39 @@ class PeopleView extends IuguUI.View
       identifier: 'people-table'
 
     @navigator = new IuguUI.Navigator
-      collection: @collection
       baseURL: @options.baseURL
       parent: @
       identifier: 'people-navigator'
 
+    IuguUI.Helpers.bindNavigatorToCollection @collection, @navigator, @
+    IuguUI.Helpers.bindPaginatorToCollection @collection, @paginator, @
+
     @on( 'people-table:record:click', @openRecord, @ )
     @on( 'people-table:record:mouseenter', @infoINRecord, @ )
     @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
-    @on( 'undo-alert:record:click', @undo )
+    @on( 'undo-alert:click', @undo )
 
     @collection.on "destroy", @enableUndo
     @collection.on "sync", @enableUndo
+
+    @collection.on 'changed-page:success', () ->
+      Backbone.history.navigate @options.baseURL + '/' + @collection.info().currentPage, { trigger: false }
+    , @
 
   # TODO: Change name to updateCollection
   refresh: (model) ->
     model.off "undo:success", @refresh, @
     # Undo de Create e Destroy deve ser estudado
-    @collection.add model, at: model.lastCollectionIndex
+    if model.get('undo_event') == 'create'
+      @collection.remove model
+    else
+      @collection.add model, at: model.lastCollectionIndex
     @collection.trigger 'change', model
 
   enableUndo: (model) ->
 
     if @undoAlert
-      @undoAlert.close()
+      @cleanUp()
 
     @undoAlert = new IuguUI.Alert
       parent: @
@@ -67,14 +75,17 @@ class PeopleView extends IuguUI.View
       model: model
 
   undo: (context) ->
+    @cleanUp()
     context.model.on "undo:success", @refresh, @
     context.model.undo()
 
   openRecord: ( context ) ->
+    @cleanUp()
     editURL = @options.baseURL + '/edit/' + context.model.get('id')
     Backbone.history.navigate editURL, { trigger: true }
 
   newPerson: (evt) ->
+    @cleanUp()
     evt.preventDefault()
     newURL = @options.baseURL + '/new'
     Backbone.history.navigate newURL, { trigger: true }
@@ -85,6 +96,10 @@ class PeopleView extends IuguUI.View
 
   infoOUTRecord: ( context ) ->
     context.$el.css('background','#FFFFFF')
+
+  cleanUp: ->
+    delete @undoAlert
+    @undoAlert = null
 
   render: ->
     super
@@ -126,6 +141,7 @@ class PeopleNew extends IuguUI.View
 
   save: (evt) ->
     evt.preventDefault()
+    @collection.add @model, at: 0
     @model.save wait: true
 
 @PeopleNew = PeopleNew
@@ -137,9 +153,11 @@ class PeopleEdit extends IuguUI.View
   events:
     'click .save': 'save'
     'click .remove': 'remove'
+    'click .back': 'back'
 
   initialize: ->
-    _.bindAll @, 'render', 'save', 'remove', 'goBack'
+    # TODO: Arrumar "Back"
+    _.bindAll @, 'render', 'save', 'remove', 'goBack', 'back'
     super
 
     @model.on "sync", @goBack, @
@@ -148,6 +166,10 @@ class PeopleEdit extends IuguUI.View
   goBack: () ->
     @close()
     window.history.back()
+
+  back: (evt) ->
+    evt.preventDefault()
+    @goBack()
 
   save: (evt) ->
     evt.preventDefault()
@@ -178,7 +200,8 @@ class PeopleRouter extends Backbone.Router
   initializeView: ->
     unless @view
       @view = new PeopleView( { collection: app.people, baseURL: @baseURL } )
-  index: (page = 1) ->
+
+  index: (page=1) ->
     if page != app.people.currentPage
       app.people.goTo( page )
 
@@ -186,6 +209,7 @@ class PeopleRouter extends Backbone.Router
     @view.render()
 
   redirectError: () ->
+    console.log "ERROR"
     Backbone.history.navigate @baseURL, { trigger: true }
 
   showEditPage: ( model ) ->
@@ -198,12 +222,12 @@ class PeopleRouter extends Backbone.Router
     @editView.render()
 
   showNewPage: ( model ) ->
-    @newView = new PeopleNew( { model: model } )
+    @newView = new PeopleNew( { model: model, collection: app.people} )
     @newView.render()
   
   new: ->
     model = new app.Person()
-    window.app.people.add model, at: 0
+    #window.app.people.add model, at: 0
 
     @showNewPage model
 

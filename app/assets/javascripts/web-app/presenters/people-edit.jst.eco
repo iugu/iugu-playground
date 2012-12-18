@@ -11,7 +11,7 @@
 </style>
 <div style="margin-top:10px">
   <h2>Editing Record</h2>
-  <a href="#" onclick="Backbone.history.navigate('people',{trigger:true});return false">Voltar</a>
+  <a href="#" class="back">Voltar</a>
   <form class="form-horizontal">
     <div class="form-group">
       <div class="control-group">
