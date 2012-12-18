@@ -21,7 +21,7 @@ class IuguUI.Paginator extends IuguUI.Base
   context: ->
     currentPage: 1
     firstPage: 1
-    lastPage: 3
+    lastPage: 1
     enableAdditionalButtons: @options.enableAdditionalButtons
     pageButtons: @pageButtonsToShow(10, 1, 10, 1)
 
@@ -37,7 +37,7 @@ class IuguUI.Paginator extends IuguUI.Base
     return unless totalPages
 
     if numberOfButtons > totalPages
-      return _.range(1, totalPages + 1)
+      return _.range(2, totalPages)
 
     surrounding = (numberOfButtons - 3) / 2
 
@@ -54,6 +54,5 @@ class IuguUI.Paginator extends IuguUI.Base
       end += offset
 
     _.range(begin, end + 1)
-
 
 @IuguUI.Paginator = IuguUI.Paginator

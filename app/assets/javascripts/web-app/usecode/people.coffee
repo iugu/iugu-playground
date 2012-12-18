@@ -36,6 +36,12 @@ class PeopleView extends IuguUI.View
       parent: @
       identifier: 'people-navigator'
 
+    @search = new IuguUI.Search
+      collection: @collection
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-search'
+
     IuguUI.Helpers.bindNavigatorToCollection @collection, @navigator, @
     IuguUI.Helpers.bindPaginatorToCollection @collection, @paginator, @
 
@@ -110,6 +116,7 @@ class PeopleView extends IuguUI.View
 
     @delegateChild(
       _.extend(
+        '.collection-search'                : @search
         '.collection-pagination'            : @paginator
         '.collection-dataset'               : @table
         '.collection-navigation'            : @navigator

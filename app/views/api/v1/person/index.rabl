@@ -1,7 +1,5 @@
-node :items do
-  collection @people, :object_root => false
+object false
+child(@people => "items") do
+  attributes :account_id, :age, :created_at, :id, :name, :notes, :updated_at
 end
-attributes :id, :age, :created_at, :updated_at, :name, :notes
-node :totalItems do
-  @totalItems
-end
+node(:totalItems) { @totalItems }

@@ -14,12 +14,16 @@
   <a href="#" class="btn <%= "disabled" if @currentPage == @firstPage %> previous"><i class="icon-chevron-left"></i></a>
   <% end %>
   <a href="#" class="btn <%= "btn-primary" if @currentPage == @firstPage %> page"><%= @firstPage %></a>
+  <% if @pageButtons?: %>
   <% @pageButtons[0] = '...' if (@currentPage - 3) > @firstPage %>
   <% @pageButtons[@pageButtons.length - 1] = '...' if (@currentPage + 3) < @lastPage %>
   <% for page in @pageButtons: %>
   <a href="#" class="btn <%= "btn-primary" if @currentPage == page %> <%= "disabled" if page == '...' %> page"><%= page %></a>
   <% end %>
+  <% end %>
+  <% if @lastPage > 1: %>
   <a href="#" class="btn <%= "btn-primary" if @currentPage == @lastPage %> page"><%= @lastPage %></a>
+  <% end %>
   <% if @enableAdditionalButtons: %>
   <a href="#" class="btn <%= "disabled" if @currentPage == @lastPage %> next"><i class="icon-chevron-right"></i></a>
   <% end %>

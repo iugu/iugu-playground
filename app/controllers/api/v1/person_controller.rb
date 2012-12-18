@@ -3,8 +3,21 @@ class Api::V1::PersonController < Api::V1::BaseApiController
   def index
     limit = [ params[:limit].try(:to_i) || 100, 1000 ].min
     start = params[:start] || 0
-    @people = @current_account.people.order("id DESC").limit(limit).offset(start)
-    @totalItems = @current_account.people.count
+
+    if params[:query]
+      @people = @current_account.people.search params['query'], per_page: limit, from: start
+      @totalItems = @people.total
+
+      mapped = []
+      @people.each do |r|
+        mapped.push OpenStruct.new(r.to_hash)
+      end
+
+      @people = mapped
+    else
+      @people = @current_account.people.order("id DESC").limit(limit).offset(start)
+      @totalItems = @current_account.people.count
+    end 
   end
 
   def show
@@ -21,20 +34,6 @@ class Api::V1::PersonController < Api::V1::BaseApiController
 
   def destroy
     respond_with @current_account.people.find(params[:id]).destroy
-  end
-
-  def search
-    limit = [ params[:limit].try(:to_i) || 100, 1000 ].min
-    start = params[:start] || 0
-    @people = @current_account.people.search params['query'], per_page: limit, from: start
-    @totalItems = @people.total
-
-    mapped = []
-    @people.each do |r|
-      mapped.push OpenStruct.new(r.to_hash)
-    end
-
-    @people = mapped
   end
 
   def undo
