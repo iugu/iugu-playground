@@ -24,6 +24,7 @@ class PeopleView extends IuguUI.View
     @table = new IuguUI.Table
       collection: @collection
       baseURL: @options.baseURL
+      sortableBy: ["id", "name", "age"]
       fields:
         id: "#"
         name: "Name"

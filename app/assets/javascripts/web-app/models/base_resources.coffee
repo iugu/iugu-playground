@@ -1,4 +1,4 @@
-window.app.BasePaginatedResource = Backbone.Paginator.requestPager.extend
+window.app.BaseResources = Backbone.Paginator.requestPager.extend
 
   paginator_ui:
     firstPage: 1
@@ -14,6 +14,13 @@ window.app.BasePaginatedResource = Backbone.Paginator.requestPager.extend
 
     'api_token': ->
       return api_token
+  
+    'query': ''
+
+    'sortBy': ''
+
+  configureFilter: ( param, value ) ->
+    @server_api[param] = value
 
   parse: (response) ->
     @totalRecords = response.totalItems
@@ -44,3 +51,7 @@ window.app.BasePaginatedResource = Backbone.Paginator.requestPager.extend
   gotoPrevious: ->
     if @information.currentPage > 1
       @requestPreviousPage @buildChangedPageEventOptions()
+
+  disablePagination: () ->
+    # 64 Bit Integer Size
+    @perPage = 9223372036854775807

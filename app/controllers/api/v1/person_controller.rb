@@ -1,23 +1,29 @@
 class Api::V1::PersonController < Api::V1::BaseApiController
 
   def index
-    limit = [ params[:limit].try(:to_i) || 100, 1000 ].min
-    start = params[:start] || 0
+    options = {}
+    options[:query] = params[:query]
+    options[:limit] = [ params[:limit].try(:to_i) || 100, 1000 ].min
+    options[:start] = params[:start] || 0
+    options[:account_id] = @current_account.id
+    options[:sortBy] = params[:sortBy]
 
-    if params[:query]
-      @people = @current_account.people.search params['query'], per_page: limit, from: start
-      @totalItems = @people.total
+    #options[:sortBy] = {"age" => "desc", "id" => "desc"}
 
-      mapped = []
-      @people.each do |r|
-        mapped.push OpenStruct.new(r.to_hash)
-      end
+    @people = Person.search(options)
 
-      @people = mapped
-    else
-      @people = @current_account.people.order("id DESC").limit(limit).offset(start)
-      @totalItems = @current_account.people.count
-    end 
+    @totalItems = @people.total
+
+    mapped = []
+    @people.each do |r|
+      mapped.push OpenStruct.new(r.to_hash)
+    end
+
+    mapped_facets = []
+    mapped_facets = OpenStruct.new(@people.facets)
+
+    @facets = mapped_facets
+    @items = mapped
   end
 
   def show

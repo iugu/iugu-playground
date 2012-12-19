@@ -29,8 +29,7 @@ class window.app.Person extends window.app.BaseResource
         model.trigger "undo:error", data, model
     )
 
-
-class window.app.People extends window.app.BasePaginatedResource
+class window.app.People extends window.app.BaseResources
   model: window.app.Person
 
   paginator_core:

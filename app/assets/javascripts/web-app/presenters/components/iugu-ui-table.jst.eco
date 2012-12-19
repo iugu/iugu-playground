@@ -1,8 +1,15 @@
 <table class="table table-bordered table-hover" style="margin-bottom: 0px">
   <thead>
     <tr>
-      <% for field in _.values(@options.fields): %>
-      <th><%= field %></th>
+      <% for field in _.pairs(@fields): %>
+        <% if _.indexOf(@sortableBy, field[0]) == -1: %>
+          <th><%= field %></th>
+        <% else: %>
+          <% icon_class = "" if @sortBy[field[0]] == "" %>
+          <% icon_class = "icon-chevron-up" if @sortBy[field[0]] == "asc" %>
+          <% icon_class = "icon-chevron-down" if @sortBy[field[0]] == "desc" %>
+          <th><a id="<%= field[0] %>" class="btn sort-button" href="#"><%= field[1] %>&nbsp;<i class="<%= icon_class %>"></i></a></th>
+        <% end %>
       <% end %>
     </tr>
   </thead>
