@@ -7,10 +7,14 @@ class IuguUI.Search extends IuguUI.Base
 
   searchCollection: (e) ->
     if e.keyCode == 13
+      @handleEvent "search"
       e.preventDefault()
       query = $(e.target).val()
 
-      @collection.configureFilter 'query', $(e.target).val()
+      if query == ""
+        @collection.removeFilter 'query'
+      else
+        @collection.configureFilter 'query', query
       @collection.fetch()
 
   initialize: ->

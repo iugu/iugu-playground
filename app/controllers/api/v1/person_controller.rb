@@ -5,10 +5,14 @@ class Api::V1::PersonController < Api::V1::BaseApiController
     options[:query] = params[:query]
     options[:limit] = [ params[:limit].try(:to_i) || 100, 1000 ].min
     options[:start] = params[:start] || 0
-    options[:account_id] = @current_account.id
+    options[:account_id] = @current_account.id.to_s
     options[:sortBy] = params[:sortBy]
-
-    #options[:sortBy] = {"age" => "desc", "id" => "desc"}
+    options[:created_at_from] = ""
+    options[:created_at_to] = ""
+    options[:created_at_from] = params[:created_at_from].to_date.to_s unless params[:created_at_from].blank?
+    options[:created_at_to] = params[:created_at_to].to_date.to_s unless params[:created_at_to].blank?
+    options[:age_filter] = params[:age_filter] unless params[:age_filter].blank?
+    options[:gender_filter] = params[:gender_filter] unless params[:gender_filter].blank?
 
     @people = Person.search(options)
 

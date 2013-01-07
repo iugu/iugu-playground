@@ -14,16 +14,24 @@ window.app.BaseResources = Backbone.Paginator.requestPager.extend
 
     'api_token': ->
       return api_token
-  
-    'query': ''
-
-    'sortBy': ''
 
   configureFilter: ( param, value ) ->
     @server_api[param] = value
+    @trigger 'configured-filter', param
+
+  removeFilter: (param) ->
+    delete @server_api[param]
+    @trigger "removed-filter:#{param}"
+
+  removeFiltersEndingWith: (param) ->
+    self = @
+    _.each @server_api, (value, key) ->
+      _regex = new RegExp( "#{param}$")
+      self.removeFilter(key) if key.match(_regex)
 
   parse: (response) ->
     @totalRecords = response.totalItems
+    @facets = response.facets
     @totalPages = Math.ceil(@totalRecords / @perPage)
     return response.items
 

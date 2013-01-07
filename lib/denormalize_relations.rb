@@ -6,7 +6,7 @@ if defined? Tire
       end
 
       r.keys.map do |name|
-        hsh.store(name.to_s + "_id", send(name).id)
+        hsh.store(name.to_s + "_id", send(name).id.to_s)
         return send(name).parent_ids(hsh) if send(name).respond_to?(:parent_ids)
       end
 

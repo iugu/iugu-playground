@@ -36,9 +36,8 @@ gem "populator"
 gem 'jquery-rails'
 gem 'tire'
 
-# gem "iugusdk", "~> 1.0.0.alpha.2"
-gem "iugusdk", "~> 1.0.0.alpha.3"
-gem 'iugu-ux'
+gem "iugusdk"
+gem "iugu-ux"
 
 gem "twitter-bootstrap-rails"
 

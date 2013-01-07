@@ -3,12 +3,13 @@
     <tr>
       <% for field in _.pairs(@fields): %>
         <% if _.indexOf(@sortableBy, field[0]) == -1: %>
-          <th><%= field %></th>
+          <th><%= field[1] %></th>
         <% else: %>
+          <% icon_class = "" %>
           <% icon_class = "" if @sortBy[field[0]] == "" %>
-          <% icon_class = "icon-chevron-up" if @sortBy[field[0]] == "asc" %>
-          <% icon_class = "icon-chevron-down" if @sortBy[field[0]] == "desc" %>
-          <th><a id="<%= field[0] %>" class="btn sort-button" href="#"><%= field[1] %>&nbsp;<i class="<%= icon_class %>"></i></a></th>
+          <% icon_class = "ASC" if @sortBy[field[0]] == "asc" %>
+          <% icon_class = "DESC" if @sortBy[field[0]] == "desc" %>
+          <th><a id="<%= field[0] %>" class="button sort-button" href="#" data-direction="<%= icon_class %>"><%= field[1] %>&nbsp;<%= icon_class %></a></th>
         <% end %>
       <% end %>
     </tr>

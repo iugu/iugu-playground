@@ -12,13 +12,15 @@
 <div style="margin-top:10px">
   <div class="alert-placeholder">
   </div>
-  <div class="btn-toolbar">
-    <div class="btn-group">
-      <a class="btn new-person" href="#"><i class="icon-plus-sign"></i></a>
-    </div>
-    <div class="collection-search pull-right">
-    </div>
-  </div>    
+  <a class="button new-person" href="#">+</a>
+  <div class="collection-search pull-right">
+  </div>
+  <div class="collection-range pull-right">
+  </div>
+  <div class="collection-filter-age pull-right">
+  </div>
+  <div class="collection-filter-gender pull-right">
+  </div>
   <div class="collection-dataset" style="height:386px;overflow-y:auto;margin-bottom:20px">
   </div>
 

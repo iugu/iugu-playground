@@ -13,6 +13,7 @@ IuguSDK.setup do |config|
   config.enable_subscription_features = false
   config.enable_account_api = true
   config.enable_guest_user = false
+  config.enable_user_api = true
 
   # config.alternative_layout = 'forms'
 

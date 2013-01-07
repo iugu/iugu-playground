@@ -19,22 +19,20 @@ class IuguUI.Table extends IuguUI.Dataset
     @sortBy = {}
 
   sortByColumn: (e) ->
-    btn = $(e.currentTarget)
-    icon = btn.find('i')
+    btn = $(e.target)
+    name = btn.context.id
 
-    name = btn.attr('id')
-
-    if icon.hasClass "icon-chevron-up"
-      icon.removeClass "icon-chevron-up"
-      @sortBy[name] = ""
-    else if icon.hasClass "icon-chevron-down"
-      icon.removeClass "icon-chevron-down"
-      icon.addClass "icon-chevron-up"
+    if btn.data('direction') == "ASC"
+      btn.data('direction', "")
+      delete @sortBy[name]
+    else if btn.data('direction') == "DESC"
+      btn.data('direction', "ASC")
       @sortBy[name] = "asc"
     else
-      icon.addClass "icon-chevron-down"
+      btn.data('direction', "DESC")
       @sortBy[name] = "desc"
 
+    @collection.removeFilter 'sortBy'
     @collection.configureFilter 'sortBy', @sortBy
     @collection.fetch()
 

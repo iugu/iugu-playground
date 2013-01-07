@@ -1,6 +1,6 @@
 object false
 child(@items => "items") do
-  attributes :account_id, :age, :created_at, :id, :name, :notes, :updated_at
+  attributes :account_id, :age, :created_at, :id, :name, :notes, :updated_at, :gender
 end
 glue :facets do
   child @facets => "facets" do

@@ -8,9 +8,34 @@ class PeopleView extends IuguUI.View
   initialize: ->
     _.bindAll @, 'render', 'openRecord', 'enableUndo'
     super
+    
+    @filter_age = new IuguUI.SearchFilter
+      collection: @collection
+      multiSelection: true
+      filterName: "age"
+      fixedFilters: ["22", "40", "30"]
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-age-filter'
+
+    @filter_gender = new IuguUI.SearchFilter
+      collection: @collection
+      multiSelection: true
+      filterName: "gender"
+      fixedFilters: ["male", "female"]
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-gender-filter'
+
+    @range = new IuguUI.SearchRange
+      collection: @collection
+      fieldName: "created_at"
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-range'
 
     @paginator = new IuguUI.Paginator
-      enableAdditionalButtons: false
+      enableAdditionalButtons: true
       baseURL: @options.baseURL
       parent: @
       identifier: 'people-paginator'
@@ -24,11 +49,12 @@ class PeopleView extends IuguUI.View
     @table = new IuguUI.Table
       collection: @collection
       baseURL: @options.baseURL
-      sortableBy: ["id", "name", "age"]
+      sortableBy: ["id", "age", "gender"]
       fields:
         id: "#"
         name: "Name"
         age: "Age"
+        gender: "Gender"
       parent: @
       identifier: 'people-table'
 
@@ -50,6 +76,7 @@ class PeopleView extends IuguUI.View
     @on( 'people-table:record:mouseenter', @infoINRecord, @ )
     @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
     @on( 'undo-alert:click', @undo )
+    @on( 'people-search:search', @clearFilters )
 
     @collection.on "destroy", @enableUndo
     @collection.on "sync", @enableUndo
@@ -57,6 +84,9 @@ class PeopleView extends IuguUI.View
     @collection.on 'changed-page:success', () ->
       Backbone.history.navigate @options.baseURL + '/' + @collection.info().currentPage, { trigger: false }
     , @
+
+  clearFilters: ->
+    @collection.removeFiltersEndingWith "_filter"
 
   # TODO: Change name to updateCollection
   refresh: (model) ->
@@ -121,6 +151,9 @@ class PeopleView extends IuguUI.View
         '.collection-pagination'            : @paginator
         '.collection-dataset'               : @table
         '.collection-navigation'            : @navigator
+        '.collection-range'                 : @range
+        '.collection-filter-age'            : @filter_age
+        '.collection-filter-gender'         : @filter_gender
         ,
         optionalChilds
       )

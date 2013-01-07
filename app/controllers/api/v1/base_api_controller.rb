@@ -9,12 +9,23 @@ class Api::V1::BaseApiController < ApplicationController
   layout false
 
   def check_for_valid_request!
-    authenticate_with_http_basic do |username|
-      @current_account = Account.find_by_api_token( username )
+    authenticate_with_http_basic { |token| @token = token }
+    if @token = ApiToken.find_by_token(params[:api_token] || @token)
+      case 
+      when @token.tokenable.class == User
+        @current_user = @token.tokenable
+        if params[:account_id] 
+          @current_account = @current_user.account_users.find_by_account_id(params[:account_id]).account
+        else
+          @current_account = @current_user.account_users.first.account
+        end
+      when @token.tokenable.class == Account
+        @current_account = @token.tokenable
+      end
+      return unauthorized unless @current_account 
+    else
+      unauthorized
     end
-    @current_account = Account.find_by_api_token( params[:api_token] ) if params[:api_token]
-
-    render 'api/v1/401', :status => :unauthorized unless @current_account
   end
 
   def build_params_for(model, options = {})
@@ -26,6 +37,10 @@ class Api::V1::BaseApiController < ApplicationController
 
   def not_found
     render 'api/v1/404', :status => :not_found
+  end
+
+  def unauthorized
+    render 'api/v1/401', :status => :unauthorized
   end
 
   private
