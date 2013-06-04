@@ -8,6 +8,14 @@ class PeopleView extends IuguUI.View
   initialize: ->
     _.bindAll @, 'render', 'openRecord', 'enableUndo'
     super
+
+    @button_toolbar = new IuguUI.Toolbar
+      buttons:
+        new_person: "+"
+        help: "?"
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'people-button-toolbar'
     
     @filter_age = new IuguUI.SearchFilter
       collection: @collection
@@ -75,6 +83,7 @@ class PeopleView extends IuguUI.View
     @on( 'people-table:record:click', @openRecord, @ )
     @on( 'people-table:record:mouseenter', @infoINRecord, @ )
     @on( 'people-table:record:mouseleave', @infoOUTRecord, @ )
+    @on( 'people-button-toolbar:new_person:click', @newPerson, @ )
     @on( 'undo-alert:click', @undo )
     @on( 'people-search:search', @clearFilters )
 
@@ -121,9 +130,8 @@ class PeopleView extends IuguUI.View
     editURL = @options.baseURL + '/edit/' + context.model.get('id')
     Backbone.history.navigate editURL, { trigger: true }
 
-  newPerson: (evt) ->
+  newPerson: ->
     @cleanUp()
-    evt.preventDefault()
     newURL = @options.baseURL + '/new'
     Backbone.history.navigate newURL, { trigger: true }
 
@@ -154,6 +162,7 @@ class PeopleView extends IuguUI.View
         '.collection-range'                 : @range
         '.collection-filter-age'            : @filter_age
         '.collection-filter-gender'         : @filter_gender
+        '.button-toolbar'                   : @button_toolbar
         ,
         optionalChilds
       )

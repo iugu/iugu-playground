@@ -9,26 +9,23 @@
     display: table;
 }
 </style>
-<div style="margin-top:10px">
-  <div class="alert-placeholder">
-  </div>
-  <a class="button new-person" href="#">+</a>
-  <div class="collection-search pull-right">
-  </div>
-  <div class="collection-range pull-right">
-  </div>
-  <div class="collection-filter-age pull-right">
-  </div>
-  <div class="collection-filter-gender pull-right">
-  </div>
-  <div class="collection-dataset" style="height:386px;overflow-y:auto;margin-bottom:20px">
-  </div>
-
-  <div class="clearfix">
-    <div class="collection-pagination" style="float:left">
-    </div>
-
-    <div class="collection-navigation" style="float:right">
+<div class="content-area">
+  <div class="content">
+    <div class="handle-scrolling">
+      <div>
+        <div class="alert-placeholder"></div>
+        <a class="button new-person" href="#">+</a>
+        <div class="collection-search pull-right"></div>
+        <div class="collection-range pull-right"></div>
+        <div class="collection-filter-age pull-right"></div>
+        <div class="collection-filter-gender pull-right"></div>
+        <div class="collection-dataset" style="height:386px;overflow-y:auto;margin-bottom:20px"></div>
+        <div class="clearfix">
+          <div class="button-toolbar" style="float:left; margin-right: 5px;"></div>
+          <div class="collection-pagination" style="float:left"></div>
+          <div class="collection-navigation" style="float:right"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

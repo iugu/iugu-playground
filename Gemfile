@@ -37,7 +37,7 @@ gem 'jquery-rails'
 gem 'tire'
 
 gem "iugusdk"
-gem "iugu-ux"
+gem "iugu-ux", :path => "~/.staging/iugu-ux"
 
 gem "twitter-bootstrap-rails"
 
