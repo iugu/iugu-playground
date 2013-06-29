@@ -4,6 +4,7 @@ class Person < ActiveRecord::Base
 
   validates :name, :age, :account, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 0 }
+  validates :gender, inclusion: { in: %w(male female) , message: "%{value} is not a valid gender" }
 
   attr_accessible :name, :age, :notes, :gender
 

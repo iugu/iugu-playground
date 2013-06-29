@@ -1,4 +1,14 @@
 {
+  'genders': {
+    'male': 'Male',
+    'female': 'Female'
+  },
+  'people_fields': {
+    'name': 'Name',
+    'age': 'Age',
+    'gender': 'Gender',
+    'notes': 'Notes'
+  },
   'active_record': {
     'errors': {
       'invalid': 'is invalid'

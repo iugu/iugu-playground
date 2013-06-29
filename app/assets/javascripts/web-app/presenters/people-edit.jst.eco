@@ -1,24 +1,9 @@
-<style type="text/css">
-.clearfix {
-    *zoom: 1;
-}
-
-.clearfix:after {
-    clear: both;
-    content: "";
-    display: table;
-}
-</style>
-<div style="margin-top:10px">
-  <h2>Editing Record</h2>
-  <a href="#" class="back button">Voltar</a>
-  <form>
-    <input name="name" type="text" data-value="model.name" placeholder="Name"><br/>
-    <input name="age" type="text" data-value="model.age" placeholder="Age"><br/>
-    <input name="gender" type="text" data-value="model.gender" placeholder="Gender"><br/>
-    <input name="notes" type="text" data-value="model.notes" placeholder="Notes"><br/>
-    <button class="save button default">Save</button><br/>
-    <button class="remove button warning">Remove</button><br/>
-  </div>
+<div class="person">
+  <form class="form-horizontal form-group">
+    <input name="name" type="text" data-value="model.name" placeholder="<%= _t 'people_fields.name' %>"><br/>
+    <input name="age" type="text" data-value="model.age" placeholder="<%= _t 'people_fields.age' %>"><br/>
+    <input name="gender" type="text" data-value="model.gender" placeholder="<%= _t 'people_fields.gender' %>"><br/>
+    <input name="notes" type="text" data-value="model.notes" placeholder="<%= _t 'people_fields.notes' %>"><br/>
+    <br/>
   </form>
 </div>

@@ -8,26 +8,10 @@ class window.app.Person extends window.app.BaseResource
   validation:
     name:
       required: true
+    gender:
+      oneOf: ["male", "female"]
     age:
       range: [1, 150]
-
-  undo: ->
-    @configureAjax()
-
-    uri = @appendLocaleInfo @urlRoot + '/' + @id + '/undo'
-
-    @trigger "undo"
-
-    model = @
-
-    Backbone.ajax(uri,
-      type: "POST"
-      success: (data) ->
-        model.set(data)
-        model.trigger "undo:success", model
-      error: (data) ->
-        model.trigger "undo:error", data, model
-    )
 
 class window.app.People extends window.app.BaseResources
   model: window.app.Person
