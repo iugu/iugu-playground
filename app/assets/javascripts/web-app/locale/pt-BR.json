@@ -1,4 +1,9 @@
 {
+  'default_actions': {
+    'people': 'Pessoas',
+    'dashboard': 'Início',
+    'logout': 'Sair'
+  },
   'genders': {
     'male': 'Masculino',
     'female': 'Feminino'

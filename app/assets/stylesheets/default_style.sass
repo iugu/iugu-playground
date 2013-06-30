@@ -1,25 +1,37 @@
 @import 'iugu-ux/core'
+@import "iugu-ux/variables" 
+@import "compass/css3"
 
-.wrapper, #app 
-  width: 980px
-  margin-left: auto
-  margin-right: auto
-  margin-top: 20px
-  background: #FFF
-  +box-shadow( rgba(0,0,0,0.24) 0px 0px 2px, rgba(0,0,0,0.25) 0px 0px 5px )
-  +box-sizing( border-box )
-  padding: 20px
+.iugu-ui
+  .sidebar.iugu-main-sidebar
+    .header-wrapper
+      height: 104px
+      position: relative
+      .platform-logo-iugu-small
+        position: absolute
+        left: 50%
+        margin-left: -32px
+        top: 20px
 
-  .hero-unit
-    margin-bottom: 0px
+.iugu-ui
+  .sidebar.iugu-main-sidebar
+    background: #f2f2f2
+    padding: 0px
+    .nav
+      a,a:visited
+        display: block
+        padding: 13px
+        text-decoration: none
+        color: #333
+        border-bottom: 1px solid #ccc
+        border-top: 1px solid #fff
+        @include text-shadow( rgba(255,255,255,1) 1px 1px 0px )
+        &:hover
+          background: #ececec 
 
-body
-  background: #ECECEC
-
-html.mobile body input
-  -webkit-user-select: text
-  -khtml-user-select: text
-  -moz-user-select: text
-  -ms-user-select: text
-  user-select: text
-
+.mobile
+  .iugu-ui
+    .sidebar.iugu-main-sidebar
+      .nav
+        a:hover
+          background: #f2f2f2

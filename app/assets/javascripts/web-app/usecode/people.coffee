@@ -1,12 +1,10 @@
 class PeopleIndex extends IuguUI.View
   layout: 'people-view'
-  ###
   emptyCollection:
     imageClass: "peopleEmpty"
     text: "Teste de Texto"
     buttonText: "Adicionar"
     buttonClass: "add-person"
-  ###
 
   events:
     'click .add-person' : 'newPerson'
@@ -209,16 +207,13 @@ class PeopleRouter extends Backbone.Router
     "people/:page"    : "index"
 
   index: ->
-    $("#app-content").html (new PeopleIndex).el
-    #app.rootWindow.getContent().html (new PeopleIndex).el
+    app.rootWindow.getContent().html (new PeopleIndex).el
 
   new: ->
-    $("#app-content").html (new PeopleEdit).el
-    #app.rootWindow.getContent().html (new PeopleEdit).el
+    app.rootWindow.getContent().html (new PeopleEdit).el
 
   edit: (id) ->
-    $("#app-content").html (new PeopleEdit { id: id }).el
-    #app.rootWindow.getContent().html (new PeopleEdit { id: id }).el
+    app.rootWindow.getContent().html (new PeopleEdit { id: id }).el
 
 $ ->
   app.registerRouter( PeopleRouter )

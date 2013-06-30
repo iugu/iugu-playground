@@ -1,4 +1,9 @@
 {
+  'default_actions': {
+    'people': 'People',
+    'dashboard': 'Dashboard',
+    'logout': 'Logout'
+  },
   'genders': {
     'male': 'Male',
     'female': 'Female'
