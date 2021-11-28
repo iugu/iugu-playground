@@ -1,9 +1,0 @@
-<div class="person">
-  <form class="form-horizontal form-group">
-    <input name="name" type="text" data-value="model.name" placeholder="<%= _t 'people_fields.name' %>"><br/>
-    <input name="age" type="text" data-value="model.age" placeholder="<%= _t 'people_fields.age' %>"><br/>
-    <input name="gender" type="text" data-value="model.gender" placeholder="<%= _t 'people_fields.gender' %>"><br/>
-    <input name="notes" type="text" data-value="model.notes" placeholder="<%= _t 'people_fields.notes' %>"><br/>
-    <br/>
-  </form>
-</div>
